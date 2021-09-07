@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2c3e50</color>
-    <color name="colorPrimaryDark">#1B3147</color>
-    <color name="colorAccent">#3498db</color>
+  <color name="colorPrimary">#2c3e50</color>
+  <color name="colorPrimaryDark">#1B3147</color>
+  <color name="colorAccent">#3498db</color>
+
+  <color name="splash_background">#FF2121</color>
+
+  <color name="transparent">@color/material_grey_900</color>
+
+  <color name="getstartedPrimary">#D80202</color>
+  <color name="loginPrimary">#D80202</color>
+  <color name="loginPrimaryDark">#E95959</color>
+  <color name="loginAccent">#ffffff</color>
+
+  <color name="colorsearch">#EFEAEA</color>
+
 </resources>

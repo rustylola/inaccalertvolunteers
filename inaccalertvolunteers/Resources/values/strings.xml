@@ -1,4 +1,32 @@
 <resources>
-    <string name="app_name">inaccalertvolunteers</string>
-    <string name="action_settings">Settings</string>
+  <string name="mapkey">AIzaSyC29_cjbk_dSepIWIyjN0qULWxB7MLmfRk</string>
+
+  <string name="app_name">IN-ACC-ALERT:USER</string>
+  <string name="action_settings">Settings</string>
+
+  <string name="string_user">USERS</string>
+  <string name="string_getstarted">GET STARTED</string>
+
+  <string name="icon_app">icon</string>
+  <string name="string_welcome">Welcome !</string>
+
+  <string name="login_fb">CONTINUE WITH FACEBOOK</string>
+  <string name="login_google">CONTINUE WITH GOOGLE</string>
+  <string name="login_em">LOGIN</string>
+  <string name="createnew">No account? Create new here!</string>
+  <string name="backtologin">Registered already? Click to Login.</string>
+
+  <string name="registerform">Create Account</string>
+  <string name="register">Register</string>
+
+  <string name="fbheadertext">Facebook Information</string>
+  <string name="fbbtn">Continue</string>
+
+  <string name="testbtn">test</string>
+
+  <string name="fullname">Full name</string>
+  <string name="phonenum">Phone Number</string>
+  <string name="inputtextuseremail">Email</string>
+  <string name="inputtextpass">Password</string>
+  <string name="confirmpass">Confirm Password</string>
 </resources>
