@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "846956834136",
+    "firebase_url": "https://inaccalert-database-default-rtdb.firebaseio.com",
+    "project_id": "inaccalert-database",
+    "storage_bucket": "inaccalert-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846956834136:android:f439130ea264a4f7ff092d",
+        "android_client_info": {
+          "package_name": "com.companyname.inaccalertusers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846956834136-n5l3k0jncsuhmpjm47dlfcrscn4lg6lr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDcTY55MlwDzx2r_zAij1uGu0QOMzdzVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846956834136-n5l3k0jncsuhmpjm47dlfcrscn4lg6lr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846956834136:android:9bfbad0762bb631aff092d",
+        "android_client_info": {
+          "package_name": "com.companyname.inaccalertvolunteers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846956834136-n5l3k0jncsuhmpjm47dlfcrscn4lg6lr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDcTY55MlwDzx2r_zAij1uGu0QOMzdzVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846956834136-n5l3k0jncsuhmpjm47dlfcrscn4lg6lr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
