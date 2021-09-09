@@ -1,7 +1,11 @@
 <resources>
   <string name="mapkey">AIzaSyC29_cjbk_dSepIWIyjN0qULWxB7MLmfRk</string>
 
-  <string name="app_name">IN-ACC-ALERT:USER</string>
+  <string name="imglayout">Img</string>
+  <string name="upload">UPLOAD IMG</string>
+  <string name="capture">CAPTURE IMG</string>
+  
+  <string name="app_name">IN-ACC-ALERT:VOLUNTEER</string>
   <string name="action_settings">Settings</string>
 
   <string name="string_user">USERS</string>

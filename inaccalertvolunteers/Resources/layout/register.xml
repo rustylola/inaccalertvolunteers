@@ -45,11 +45,58 @@
             android:layout_height="1dp"
             android:layout_weight="0.8"
             android:id="@+id/layoutregister">
+
          <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="1dp"
             android:id="@+id/layoutregistercontents">
+
+            <ImageView
+                android:id="@+id/uploadimage"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:contentDescription="@string/imglayout"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:padding="15dp"
+                android:background="@drawable/btnstyleplain"
+                android:src="@drawable/imghere"/>
+
+            <LinearLayout
+                android:id="@+id/inputimgbtn"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.5">
+                            <Button
+                                android:id="@+id/captureimg"
+                                android:text="@string/capture"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="2.5dp"
+                                android:background="@drawable/btnstyleplain"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.5">
+                            <Button
+                                android:id="@+id/uploadimg"
+                                android:text="@string/upload"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginLeft="2.5dp"
+                                android:background="@drawable/btnstyleplain"/>
+                        </LinearLayout>
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
