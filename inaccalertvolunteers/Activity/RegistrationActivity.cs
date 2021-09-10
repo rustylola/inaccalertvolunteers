@@ -8,6 +8,12 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Firebase.Auth;
+using Firebase.Database;
+using Firebase.Storage;
+using inaccalertvolunteers.EventListeners;
+using inaccalertvolunteers.Helper;
+using Java.Util;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
@@ -19,6 +25,8 @@ namespace inaccalertvolunteers.Activity
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class RegistrationActivity : AppCompatActivity
     {
+        //Task success/failure
+        TaskCompletionListener taskCompletionListener = new TaskCompletionListener();
         //define layouts
         TextInputLayout fullnametext;
         TextInputLayout useremailtext;
@@ -32,6 +40,14 @@ namespace inaccalertvolunteers.Activity
         ImageView imageview;
         Button capimg;
         Button uploadimg;
+
+        private byte[] imagearray;
+
+        //define firebase related
+        StorageReference storageReference;
+        FirebaseDatabase database;
+        FirebaseAuth mAuth;
+        FirebaseUser currentuser;
 
         //permission
         readonly string[] permissionGroup =
@@ -47,7 +63,15 @@ namespace inaccalertvolunteers.Activity
             // Create your application here
             SetContentView(Resource.Layout.register);
             connectlayout();
+            setupFirebase();
             RequestPermissions(permissionGroup, 0);
+        }
+
+        void setupFirebase()
+        {
+            database = AppDataHelper.Getdatabase();
+            mAuth = AppDataHelper.GetfirebaseAuth();
+            currentuser = AppDataHelper.Getcurrentuser();
         }
 
         void connectlayout()
@@ -65,6 +89,7 @@ namespace inaccalertvolunteers.Activity
             backtolog = (TextView)FindViewById(Resource.Id.backtologin);
 
             imageview = (ImageView)FindViewById(Resource.Id.uploadimage);
+
             capimg = (Button)FindViewById(Resource.Id.captureimg);
             capimg.Click += Capimg_Click;
             uploadimg = (Button)FindViewById(Resource.Id.uploadimg);
@@ -98,7 +123,7 @@ namespace inaccalertvolunteers.Activity
                 return;
             }
             // Convert file to byte array and set the resulting bitmap to imageview
-            byte[] imagearray = System.IO.File.ReadAllBytes(file.Path);
+            imagearray = System.IO.File.ReadAllBytes(file.Path);
             Bitmap bitmap = BitmapFactory.DecodeByteArray(imagearray, 0, imagearray.Length);
             imageview.SetImageBitmap(bitmap);
         }
@@ -117,7 +142,7 @@ namespace inaccalertvolunteers.Activity
 
             });
             // Convert file to byte array and set the resulting bitmap to imageview
-            byte[] imagearray = System.IO.File.ReadAllBytes(file.Path);
+            imagearray = System.IO.File.ReadAllBytes(file.Path);
             Bitmap bitmap = BitmapFactory.DecodeByteArray(imagearray, 0, imagearray.Length);
             imageview.SetImageBitmap(bitmap);
         }
@@ -171,6 +196,39 @@ namespace inaccalertvolunteers.Activity
                 Snackbar.Make(rootView, "Password and Confirm password not the same", Snackbar.LengthShort).Show();
                 return;
             }
+            else if (imagearray == null)
+            {
+                Snackbar.Make(rootView, "Please upload image for validation", Snackbar.LengthShort).Show();
+                return;
+            }
+
+            mAuth.CreateUserWithEmailAndPassword(useremail, userpassword)
+                .AddOnSuccessListener(this, taskCompletionListener)
+                .AddOnFailureListener(this, taskCompletionListener);
+
+            taskCompletionListener.Success += (o, g) =>
+            {
+                string imgID = Guid.NewGuid().ToString();
+                DatabaseReference newvolunteer = database.GetReference("volunteers/" + mAuth.CurrentUser.Uid);
+                HashMap map = new HashMap();
+                map.Put("name", fullname);
+                map.Put("email", useremail);
+                map.Put("phone", userphone);
+                map.Put("upload_img", "volunteerimg/"+imgID);
+                map.Put("acc_status", "processing");
+                map.Put("created_time", DateTime.Now.ToString());
+
+                newvolunteer.SetValue(map);
+
+                storageReference = FirebaseStorage.Instance.GetReference("volunteerimg/"+imgID);
+                storageReference.PutBytes(imagearray);
+                Snackbar.Make(rootView, "Registration Successfully", Snackbar.LengthShort).Show();
+            };
+
+            taskCompletionListener.Failure += (s, z) =>
+            {
+                Snackbar.Make(rootView, "Fail to Register", Snackbar.LengthShort).Show();
+            };
         }
     }
 }
