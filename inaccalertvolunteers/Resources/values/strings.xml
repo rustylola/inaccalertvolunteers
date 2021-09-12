@@ -22,6 +22,7 @@
 
   <string name="registerform">Create Account</string>
   <string name="register">Register</string>
+  <string name="apply">Register as First Aider</string>
 
   <string name="fbheadertext">Facebook Information</string>
   <string name="fbbtn">Continue</string>
@@ -33,4 +34,6 @@
   <string name="inputtextuseremail">Email</string>
   <string name="inputtextpass">Password</string>
   <string name="confirmpass">Confirm Password</string>
+
+  <string name="loader">Loading...</string>
 </resources>

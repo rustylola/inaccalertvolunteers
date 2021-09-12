@@ -22,7 +22,7 @@ using System.Text;
 
 namespace inaccalertvolunteers.Activity
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class RegistrationActivity : AppCompatActivity
     {
         //Task success/failure
@@ -87,6 +87,7 @@ namespace inaccalertvolunteers.Activity
             createacc = (Button)FindViewById(Resource.Id.registerbtn);
             createacc.Click += Createacc_Click;
             backtolog = (TextView)FindViewById(Resource.Id.backtologin);
+            backtolog.Click += Backtolog_Click;
 
             imageview = (ImageView)FindViewById(Resource.Id.uploadimage);
 
@@ -94,6 +95,11 @@ namespace inaccalertvolunteers.Activity
             capimg.Click += Capimg_Click;
             uploadimg = (Button)FindViewById(Resource.Id.uploadimg);
             uploadimg.Click += Uploadimg_Click;
+        }
+
+        private void Backtolog_Click(object sender, EventArgs e)
+        {
+            StartActivity(typeof(loginActivity));
         }
 
         private void Uploadimg_Click(object sender, EventArgs e)
