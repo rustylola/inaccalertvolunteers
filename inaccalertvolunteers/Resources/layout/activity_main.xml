@@ -1,14 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/activity_main"
+    android:background="@drawable/background">
 
-    <TextView
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Hello World!"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/onlinetoolbar"
+        android:background="?attr/colorPrimary"
+        android:minHeight="52dp"
+        android:theme="@style/logintheme"
+        android:elevation="4dp">
+        
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:id="@+id/onlintbtn"
+            android:text="@string/online"
+            android:background="@drawable/btnstyleplain"
+            android:layout_gravity="center"/>
+    
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/content_frame"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_above="@+id/bottom_nav">
+
+        <android.support.v4.view.ViewPager
+            android:layout_weight="0.8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/viewpager"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_gravity="start"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/loginAccent"
+        app:itemIconTint="@drawable/color_buttomselector"
+        app:itemTextColor="@drawable/color_buttomselector"
+        app:menu="@menu/button_nav_menu"
+        android:layout_height="60dp"
+        app:elevation="16dp"/>
 
 </RelativeLayout>

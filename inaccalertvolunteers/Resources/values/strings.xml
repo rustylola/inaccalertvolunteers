@@ -36,4 +36,6 @@
   <string name="confirmpass">Confirm Password</string>
 
   <string name="loader">Loading...</string>
+
+  <string name="online">Go Online</string>
 </resources>
