@@ -64,7 +64,11 @@
     <Compile Include="Activity\loginActivity.cs" />
     <Compile Include="Activity\RegistrationActivity.cs" />
     <Compile Include="Activity\splashActivity.cs" />
+    <Compile Include="Adapter\ViewPagerAdapter.cs" />
     <Compile Include="EventListeners\TaskCompletionListeners.cs" />
+    <Compile Include="Fragments\historyFragment.cs" />
+    <Compile Include="Fragments\mapnotificationfragment.cs" />
+    <Compile Include="Fragments\profileFragment.cs" />
     <Compile Include="Helper\AppDataHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -242,6 +246,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_history.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\profile.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\history.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\mapnotification.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

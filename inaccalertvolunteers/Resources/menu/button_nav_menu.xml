@@ -8,10 +8,10 @@
         android:title="Profile"
         app:showAsAction="ifRoom"/>
 
-  <item android:id="@+id/accident"
+  <item android:id="@+id/mapnotification"
         android:enabled="true"
         android:icon="@mipmap/ic_accident"
-        android:title="Map Accident"
+        android:title="Map Notification"
         app:showAsAction="ifRoom"/>
 
   <item android:id="@+id/history"

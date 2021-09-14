@@ -38,4 +38,8 @@
   <string name="loader">Loading...</string>
 
   <string name="online">Go Online</string>
+
+  <string name="titleprofile">My Profile</string>
+  <string name="titlehistory">History Notification</string>
+  <string name="titlemapnotif">Map Notification</string>
 </resources>

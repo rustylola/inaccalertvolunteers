@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0.1"
+            android:background="@color/loginPrimary"
+            android:id="@+id/continuefbheader">
+            <TextView
+                android:text="@string/titlemapnotif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center"
+                android:id="@+id/textTitle"
+                android:textColor="@color/loginAccent"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/mapcontent"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0.9"/>
+
+</LinearLayout>
