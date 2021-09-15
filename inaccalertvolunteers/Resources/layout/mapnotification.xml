@@ -4,27 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="0.1"
-            android:background="@color/loginPrimary"
-            android:id="@+id/continuefbheader">
-            <TextView
-                android:text="@string/titlemapnotif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:layout_marginTop="13dp"
-                android:gravity="center"
-                android:id="@+id/textTitle"
-                android:textColor="@color/loginAccent"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/mapcontent"
+    <android.support.v7.widget.Toolbar
+        android:layout_weight="0.1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="0.9"/>
+        android:id="@+id/onlinetoolbar"
+        android:background="?attr/colorPrimary"
+        android:minHeight="52dp"
+        android:theme="@style/logintheme"
+        android:elevation="4dp">
+        
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:id="@+id/onlintbtn"
+            android:text="@string/online"
+            android:background="@drawable/btnstyleplain"
+            android:layout_gravity="center"/>
+    
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/mapcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0.9">
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.SupportMapFragment"/>
+
+        <ImageView
+            android:contentDescription="@string/icon_app"
+            android:id="@+id/centerMarker"
+            android:layout_height="40dp"
+            android:layout_width="40dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:src="@drawable/ic_pinme"/>
+
+    </FrameLayout>
 
 </LinearLayout>

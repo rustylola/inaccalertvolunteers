@@ -1,7 +1,9 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Support.V7.App;
 using inaccalertvolunteers.Adapter;
@@ -21,6 +23,14 @@ namespace inaccalertvolunteers
         profileFragment pFragment = new profileFragment();
         mapnotificationfragment mFragment = new mapnotificationfragment();
         historyFragment hFragment = new historyFragment();
+
+        //Create permission
+        const int requestID = 0;
+        readonly string[] permissionGroup =
+        {
+            Manifest.Permission.AccessCoarseLocation,
+            Manifest.Permission.AccessFineLocation,
+        };
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,6 +38,7 @@ namespace inaccalertvolunteers
             SetContentView(Resource.Layout.activity_main);
             connectview();
             viewPager.SetCurrentItem(1, true);
+            checkPermission();
         }
 
         void connectview()
@@ -67,6 +78,21 @@ namespace inaccalertvolunteers
             adapter.Addfragment(mFragment, "Map Notification");
             adapter.Addfragment(hFragment, "History");
             viewPager.Adapter = adapter;
+        }
+
+        bool checkPermission()
+        {
+            bool permissionedGranted = false;
+            if (ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != Android.Content.PM.Permission.Granted &&
+                ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Android.Content.PM.Permission.Granted)
+            {
+                RequestPermissions(permissionGroup, requestID);
+            }
+            else
+            {
+                permissionedGranted = true;
+            }
+            return permissionedGranted;
         }
     }
 }
