@@ -84,7 +84,7 @@ namespace inaccalertvolunteers
             adapter.Addfragment(hFragment, "History");
             viewPager.Adapter = adapter;
         }
-
+        // Check permission
         bool checkPermission()
         {
             bool permissionedGranted = false;
