@@ -1,10 +1,12 @@
-﻿using Android.App;
+﻿using Android;
+using Android.App;
 using Android.Content;
 using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -52,6 +54,7 @@ namespace inaccalertvolunteers.Fragments
             SupportMapFragment mapFragment = (SupportMapFragment)ChildFragmentManager.FindFragmentById(Resource.Id.map);
             mapFragment.GetMapAsync(this);
             createLocationRequest();
+            continuelocation();
             return view;
         }
 
@@ -85,7 +88,33 @@ namespace inaccalertvolunteers.Fragments
 
         void startLocationUpdate()
         {
-            locationProviderClient.RequestLocationUpdates(myLocationRequest, mylocationCallback, null);
+            if (ActivityCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessFineLocation) == Android.Content.PM.Permission.Granted &&
+                ActivityCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessCoarseLocation) == Android.Content.PM.Permission.Granted)
+            {
+                locationProviderClient.RequestLocationUpdates(myLocationRequest, mylocationCallback, null);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        async void continuelocation()
+        {
+            if (ActivityCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessFineLocation) != Android.Content.PM.Permission.Granted &&
+                ActivityCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessCoarseLocation) != Android.Content.PM.Permission.Granted)
+            {
+                return;
+            }
+            else
+            {
+                mylastLocation = await locationProviderClient.GetLastLocationAsync();
+                if (mylastLocation != null)
+                {
+                    LatLng myposition = new LatLng(mylastLocation.Latitude, mylastLocation.Longitude);
+                    mainMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(myposition, 18)); //set the zoom
+                }
+            }
         }
     }
 }

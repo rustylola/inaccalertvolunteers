@@ -81,7 +81,7 @@ namespace inaccalertvolunteers.Activity
             password = passwordtext.Text;
 
             //validation of email and password
-            if (!email.Contains("@") || email.Length < 7)
+            if (!email.Contains("@") || email.Length < 7 || email.Contains(" "))
             {
                 Snackbar.Make(rootview, "Please enter a valid Email", Snackbar.LengthShort).Show();
                 return;

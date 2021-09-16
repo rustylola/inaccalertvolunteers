@@ -7,6 +7,7 @@ using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Support.V7.App;
 using inaccalertvolunteers.Adapter;
+using inaccalertvolunteers.EventListeners;
 using inaccalertvolunteers.Fragments;
 using System;
 
@@ -31,6 +32,9 @@ namespace inaccalertvolunteers
             Manifest.Permission.AccessCoarseLocation,
             Manifest.Permission.AccessFineLocation,
         };
+
+        //eventlisteners
+        ProfileEventListener profileEventListener = new ProfileEventListener();
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -39,6 +43,7 @@ namespace inaccalertvolunteers
             connectview();
             viewPager.SetCurrentItem(1, true);
             checkPermission();
+            profileEventListener.Create();
         }
 
         void connectview()

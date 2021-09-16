@@ -177,7 +177,7 @@ namespace inaccalertvolunteers.Activity
                 Snackbar.Make(rootView, "Name must be 35 Characters only", Snackbar.LengthShort).Show();
                 return;
             }
-            else if (!useremail.Contains("@") || useremail.Length < 8)
+            else if (!useremail.Contains("@") || useremail.Length < 8 || useremail.Contains(" "))
             {
                 Snackbar.Make(rootView, "Please enter a valid Email", Snackbar.LengthShort).Show();
                 return;
@@ -208,6 +208,12 @@ namespace inaccalertvolunteers.Activity
                 return;
             }
 
+            registeruser(fullname, useremail, userphone, userpassword, imagearray);
+
+        }
+
+        private void registeruser(string fullname, string useremail, string userphone, string userpassword, byte[] imagearray)
+        {
             mAuth.CreateUserWithEmailAndPassword(useremail, userpassword)
                 .AddOnSuccessListener(this, taskCompletionListener)
                 .AddOnFailureListener(this, taskCompletionListener);
@@ -220,15 +226,16 @@ namespace inaccalertvolunteers.Activity
                 map.Put("name", fullname);
                 map.Put("email", useremail);
                 map.Put("phone", userphone);
-                map.Put("upload_img", "volunteerimg/"+imgID);
+                map.Put("upload_img", "volunteerimg/" + imgID);
                 map.Put("acc_status", "processing");
                 map.Put("created_time", DateTime.Now.ToString());
 
                 newvolunteer.SetValue(map);
 
-                storageReference = FirebaseStorage.Instance.GetReference("volunteerimg/"+imgID);
+                storageReference = FirebaseStorage.Instance.GetReference("volunteerimg/" + imgID);
                 storageReference.PutBytes(imagearray);
                 Snackbar.Make(rootView, "Registration Successfully", Snackbar.LengthShort).Show();
+                StartActivity(typeof(loginActivity));
             };
 
             taskCompletionListener.Failure += (s, z) =>

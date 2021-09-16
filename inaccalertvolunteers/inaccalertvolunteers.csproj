@@ -69,6 +69,7 @@
     <Compile Include="Activity\RegistrationActivity.cs" />
     <Compile Include="Activity\splashActivity.cs" />
     <Compile Include="Adapter\ViewPagerAdapter.cs" />
+    <Compile Include="EventListeners\ProfileEventListener.cs" />
     <Compile Include="EventListeners\TaskCompletionListeners.cs" />
     <Compile Include="Fragments\historyFragment.cs" />
     <Compile Include="Fragments\mapnotificationfragment.cs" />
