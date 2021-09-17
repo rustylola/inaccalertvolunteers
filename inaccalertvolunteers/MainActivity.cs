@@ -6,6 +6,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Support.V7.App;
+using Android.Widget;
 using inaccalertvolunteers.Adapter;
 using inaccalertvolunteers.EventListeners;
 using inaccalertvolunteers.Fragments;
@@ -19,6 +20,8 @@ namespace inaccalertvolunteers
         //define layouts in activity main xml
         ViewPager viewPager;
         BottomNavigationView bottomnavigation;
+        Button onlinebtn;
+        Toolbar toolbar;
 
         //fragments
         profileFragment pFragment = new profileFragment();
@@ -35,21 +38,36 @@ namespace inaccalertvolunteers
 
         //eventlisteners
         ProfileEventListener profileEventListener = new ProfileEventListener();
+
+        //flags
+        bool availabilitystatus;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
             connectview();
-            viewPager.SetCurrentItem(1, true);
+            Frontfragment();
             checkPermission();
             profileEventListener.Create();
         }
 
+        void Frontfragment()
+        {
+            viewPager.SetCurrentItem(1, true);
+            toolbar.Visibility = Android.Views.ViewStates.Visible;
+        }
+
         void connectview()
         {
-            bottomnavigation = (BottomNavigationView)FindViewById(Resource.Id.bottom_nav);
+            
             viewPager = (ViewPager)FindViewById(Resource.Id.viewpager);
+            toolbar = (Toolbar)FindViewById(Resource.Id.onlinetoolbar);
+
+            //buttons and events
+            onlinebtn = (Button)FindViewById(Resource.Id.onlinetbtn);
+            onlinebtn.Click += Onlinebtn_Click;
+            bottomnavigation = (BottomNavigationView)FindViewById(Resource.Id.bottom_nav);
             bottomnavigation.NavigationItemSelected += Bottomnavigation_NavigationItemSelected;
             //view pager limit note : 0 is included
             viewPager.OffscreenPageLimit = 2;
@@ -59,20 +77,40 @@ namespace inaccalertvolunteers
             setupviewpager();
         }
 
+        private void Onlinebtn_Click(object sender, EventArgs e)
+        {
+            if (!checkPermission())
+            {
+                return;
+            }
+            if (availabilitystatus)
+            {
+
+            }
+            else
+            {
+                availabilitystatus = true;
+                mapnotificationfragment.instance.GoOnline();
+            }
+        }
+
         private void Bottomnavigation_NavigationItemSelected(object sender, BottomNavigationView.NavigationItemSelectedEventArgs e)
         {
             //Resource id if from Menu folder that state the navigation bottom preference id
             if (e.Item.ItemId == Resource.Id.profile)
             {
                 viewPager.SetCurrentItem(0, true);
+                toolbar.Visibility = Android.Views.ViewStates.Invisible;
             }
             else if (e.Item.ItemId == Resource.Id.mapnotification)
             {
                 viewPager.SetCurrentItem(1, true);
+                toolbar.Visibility = Android.Views.ViewStates.Visible;
             }
             else if (e.Item.ItemId == Resource.Id.history)
             {
                 viewPager.SetCurrentItem(2, true);
+                toolbar.Visibility = Android.Views.ViewStates.Invisible;
             }
         }
 
@@ -98,6 +136,11 @@ namespace inaccalertvolunteers
                 permissionedGranted = true;
             }
             return permissionedGranted;
+        }
+
+        void GoOnline()
+        {
+            
         }
     }
 }

@@ -7,6 +7,25 @@
     android:id="@+id/activity_main"
     android:background="@drawable/background">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/onlinetoolbar"
+        android:background="?attr/colorPrimary"
+        android:minHeight="52dp"
+        android:theme="@style/logintheme"
+        android:elevation="4dp">
+        
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:id="@+id/onlinetbtn"
+            android:text="@string/online"
+            android:background="@drawable/btnstyleplain"
+            android:layout_gravity="center"/>
+        
+    
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/content_frame"

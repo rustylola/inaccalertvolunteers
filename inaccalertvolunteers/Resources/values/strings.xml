@@ -42,4 +42,7 @@
   <string name="titleprofile">My Profile</string>
   <string name="titlehistory">History Notification</string>
   <string name="titlemapnotif">Map Notification</string>
+
+  <string name="currentlocationstring">Current Location</string>
+  <string name="mylocationicon">My Location</string>
 </resources>

@@ -21,6 +21,7 @@ namespace inaccalertvolunteers.Fragments
 {
     public class mapnotificationfragment : Android.Support.V4.App.Fragment, IOnMapReadyCallback
     {
+        public static mapnotificationfragment instance;
         //initialize google map
         public GoogleMap mainMap;
 
@@ -74,7 +75,7 @@ namespace inaccalertvolunteers.Fragments
             mylocationCallback.Mylocation += mylocationcallback_mylocation;
 
             locationProviderClient = LocationServices.GetFusedLocationProviderClient(Activity); // since this is a fragment, we use (Activity) instead of (this)
-            startLocationUpdate();
+            
         }
 
         private void mylocationcallback_mylocation(object sender, LocationCallbackHelper.OnLocationCapturedEventArgs e)
@@ -83,7 +84,7 @@ namespace inaccalertvolunteers.Fragments
             //update latest location on the map
             LatLng myposition = new LatLng(mylastLocation.Latitude, mylastLocation.Longitude);
             mainMap.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(myposition, 18));
-            marker.Visibility = ViewStates.Visible;
+            //marker.Visibility = ViewStates.Visible;
         }
 
         void startLocationUpdate()
@@ -97,6 +98,11 @@ namespace inaccalertvolunteers.Fragments
             {
                 return;
             }
+        }
+
+        void stopLocationUpdate()
+        {
+            locationProviderClient.RemoveLocationUpdates(mylocationCallback);
         }
 
         async void continuelocation()
@@ -115,6 +121,17 @@ namespace inaccalertvolunteers.Fragments
                     mainMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(myposition, 18)); //set the zoom
                 }
             }
+        }
+
+        public void GoOnline()
+        {
+            startLocationUpdate();
+            marker.Visibility = ViewStates.Visible;
+        }
+        public void GoOffline()
+        {
+            stopLocationUpdate();
+            marker.Visibility = ViewStates.Invisible;
         }
     }
 }

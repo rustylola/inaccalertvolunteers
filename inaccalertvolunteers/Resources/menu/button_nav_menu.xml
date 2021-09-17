@@ -11,7 +11,7 @@
   <item android:id="@+id/mapnotification"
         android:enabled="true"
         android:icon="@mipmap/ic_accident"
-        android:title="Map Notification"
+        android:title="Map Track"
         app:showAsAction="ifRoom"/>
 
   <item android:id="@+id/history"

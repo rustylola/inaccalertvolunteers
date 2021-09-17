@@ -166,9 +166,6 @@
     <AndroidResource Include="Resources\drawable\GradientEM.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_notifynear.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_pinme.png" />
   </ItemGroup>
   <ItemGroup>
