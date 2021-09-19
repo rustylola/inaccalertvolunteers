@@ -21,7 +21,8 @@ namespace inaccalertvolunteers.Fragments
 {
     public class mapnotificationfragment : Android.Support.V4.App.Fragment, IOnMapReadyCallback
     {
-        public static mapnotificationfragment instance;
+        public EventHandler<OnLocationCapturedEventArgs> CurrentLocation;
+        //public static mapnotificationfragment instance;
         //initialize google map
         public GoogleMap mainMap;
 
@@ -48,6 +49,7 @@ namespace inaccalertvolunteers.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            //instance = this;
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.mapnotification, container, false);
             //initialize map
@@ -78,13 +80,15 @@ namespace inaccalertvolunteers.Fragments
             
         }
 
-        private void mylocationcallback_mylocation(object sender, LocationCallbackHelper.OnLocationCapturedEventArgs e)
+        void mylocationcallback_mylocation(object sender, LocationCallbackHelper.OnLocationCapturedEventArgs e)
         {
             mylastLocation = e.Location;
             //update latest location on the map
             LatLng myposition = new LatLng(mylastLocation.Latitude, mylastLocation.Longitude);
             mainMap.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(myposition, 18));
             //marker.Visibility = ViewStates.Visible;
+            //Sending Location to Main Activity
+            CurrentLocation?.Invoke(this, new OnLocationCapturedEventArgs { Location = e.Location});
         }
 
         void startLocationUpdate()

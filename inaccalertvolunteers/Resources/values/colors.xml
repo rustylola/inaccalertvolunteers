@@ -15,4 +15,7 @@
 
   <color name="colorsearch">#EFEAEA</color>
 
+  <color name="btnColorBlack">#000000</color>
+  <color name="btnColorWhite">#ffffff</color>
+
 </resources>

@@ -1,15 +1,18 @@
 ﻿using Android;
 using Android.App;
+using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Support.V4.View;
 using Android.Support.V7.App;
 using Android.Widget;
 using inaccalertvolunteers.Adapter;
 using inaccalertvolunteers.EventListeners;
 using inaccalertvolunteers.Fragments;
+using inaccalertvolunteers.Helper;
 using System;
 
 namespace inaccalertvolunteers
@@ -17,11 +20,12 @@ namespace inaccalertvolunteers
     [Activity(Label = "@string/app_name", Theme = "@style/logintheme", MainLauncher = false)]
     public class MainActivity : AppCompatActivity
     {
+        
         //define layouts in activity main xml
         ViewPager viewPager;
         BottomNavigationView bottomnavigation;
         Button onlinebtn;
-        Toolbar toolbar;
+        Android.Support.V7.Widget.Toolbar toolbar;
 
         //fragments
         profileFragment pFragment = new profileFragment();
@@ -38,6 +42,11 @@ namespace inaccalertvolunteers
 
         //eventlisteners
         ProfileEventListener profileEventListener = new ProfileEventListener();
+        AvailabilityListener availabilityListener;
+
+        //Update Map inside AvailabilityListener
+        Android.Locations.Location myLastLocation;
+        LatLng myLatlng;
 
         //flags
         bool availabilitystatus;
@@ -62,8 +71,7 @@ namespace inaccalertvolunteers
         {
             
             viewPager = (ViewPager)FindViewById(Resource.Id.viewpager);
-            toolbar = (Toolbar)FindViewById(Resource.Id.onlinetoolbar);
-
+            toolbar = (Android.Support.V7.Widget.Toolbar)FindViewById(Resource.Id.onlinetoolbar);
             //buttons and events
             onlinebtn = (Button)FindViewById(Resource.Id.onlinetbtn);
             onlinebtn.Click += Onlinebtn_Click;
@@ -72,9 +80,40 @@ namespace inaccalertvolunteers
             //view pager limit note : 0 is included
             viewPager.OffscreenPageLimit = 2;
             viewPager.BeginFakeDrag();
-
+            
             //set viewpager
             setupviewpager();
+
+            //Fragment addlocation
+            mFragment.CurrentLocation += mFragment_currentlocation;
+        }
+
+        void mFragment_currentlocation(object sender, LocationCallbackHelper.OnLocationCapturedEventArgs e)
+        {
+            myLastLocation = e.Location;
+            myLatlng = new LatLng(myLastLocation.Latitude, myLastLocation.Longitude);
+
+            if (availabilityListener != null)
+            {
+                availabilityListener.updateLocation(myLastLocation);
+            }
+
+            if (availabilitystatus && availabilityListener == null)
+            {
+                TakevolunteerOnline();
+            }
+        }
+
+        private void TakevolunteerOnline()
+        {
+            availabilityListener = new AvailabilityListener();
+            availabilityListener.Create(myLastLocation);
+        }
+
+        void TakevolunteerOffline()
+        {
+            availabilityListener.removeListener();
+            availabilityListener = null;
         }
 
         private void Onlinebtn_Click(object sender, EventArgs e)
@@ -83,14 +122,37 @@ namespace inaccalertvolunteers
             {
                 return;
             }
+
             if (availabilitystatus)
             {
+                //When user wants to go offline
+                //show alert dialog
+                Android.Support.V7.App.AlertDialog.Builder alertDialog = new Android.Support.V7.App.AlertDialog.Builder(this);
+                alertDialog.SetTitle("GO OFFLINE");
+                alertDialog.SetMessage("You are not Enable to Receive Accident Notification and Request");
+                alertDialog.SetPositiveButton("Continue", (senderAlert, args) => {
 
+                    availabilitystatus = false;
+                    mFragment.GoOffline();
+                    onlinebtn.Text = "Go Online";
+                    TakevolunteerOffline();
+                    onlinebtn.Background = ContextCompat.GetDrawable(this, Resource.Drawable.btnstyleplain);
+
+                });
+                alertDialog.SetNegativeButton("Cancel", (senderAlert, args) =>
+                {
+                    alertDialog.Dispose();
+                });
+
+                alertDialog.Show();
             }
             else
             {
+                //When user wants to go Online
                 availabilitystatus = true;
-                mapnotificationfragment.instance.GoOnline();
+                mFragment.GoOnline(); // mapnotificationfragment is already define so use mFragment
+                onlinebtn.Text = "Go Offline";
+                onlinebtn.Background = ContextCompat.GetDrawable(this, Resource.Drawable.btnstyleOnlineOffline);
             }
         }
 

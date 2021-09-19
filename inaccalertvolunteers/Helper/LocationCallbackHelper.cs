@@ -13,7 +13,7 @@ using System.Text;
 
 namespace inaccalertvolunteers.Helper
 {
-    class LocationCallbackHelper : LocationCallback 
+    public class LocationCallbackHelper : LocationCallback 
     {
         public EventHandler<OnLocationCapturedEventArgs> Mylocation;
 
