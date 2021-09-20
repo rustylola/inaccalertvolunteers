@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item android:state_pressed="false">
+    <layer-list>
+      <item>
+        <shape android:shape="rectangle">
+          <!--make a gradient background-->
+          <gradient
+              android:type="linear"
+              android:startColor="@color/getstartedPrimary"
+              android:endColor="@color/getstartedPrimary"
+              android:centerColor="@color/getstartedPrimary"
+              android:angle="90"
+              android:gradientRadius="90"/>
+          <!--apply a border around button-->
+          <stroke android:color="@color/btnColorWhite" android:width="2dp" />
+          <!-- make the button corners rounded-->
+          <corners android:radius="25dp"/>
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+
+  <item android:state_pressed="true">
+    <layer-list>
+      <item>
+        <shape android:shape="rectangle">
+          <!--make a gradient background-->
+          <gradient
+          android:type="linear"
+          android:startColor="@color/loginAccent"
+          android:endColor="@color/loginAccent"
+          android:centerColor="@color/loginAccent"
+          android:angle="90"
+          android:gradientRadius="90"/>
+          <!--apply a border around button-->
+          <stroke android:color="@color/getstartedPrimary" android:width="2dp" />
+          <!-- make the button corners rounded-->
+          <corners android:radius="25dp"/>
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+
+</selector>

@@ -1,6 +1,7 @@
 ﻿using Android;
 using Android.App;
 using Android.Gms.Maps.Model;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -136,6 +137,7 @@ namespace inaccalertvolunteers
                     mFragment.GoOffline();
                     onlinebtn.Text = "Go Online";
                     TakevolunteerOffline();
+                    onlinebtn.SetTextColor(Color.Black);
                     onlinebtn.Background = ContextCompat.GetDrawable(this, Resource.Drawable.btnstyleplain);
 
                 });
@@ -151,8 +153,10 @@ namespace inaccalertvolunteers
                 //When user wants to go Online
                 availabilitystatus = true;
                 mFragment.GoOnline(); // mapnotificationfragment is already define so use mFragment
+                Toast.MakeText(this, "Enable to Receive Accident Request", ToastLength.Short).Show();
                 onlinebtn.Text = "Go Offline";
-                onlinebtn.Background = ContextCompat.GetDrawable(this, Resource.Drawable.btnstyleOnlineOffline);
+                onlinebtn.SetTextColor(Color.White);
+                onlinebtn.Background = ContextCompat.GetDrawable(this, Resource.Drawable.btnOffline);
             }
         }
 

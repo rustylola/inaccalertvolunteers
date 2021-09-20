@@ -22,6 +22,7 @@
             android:id="@+id/onlinetbtn"
             android:text="@string/online"
             android:background="@drawable/btnstyleplain"
+
             android:layout_gravity="center"/>
         
     
