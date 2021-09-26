@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace inaccalertvolunteers.Activity
 {
@@ -24,7 +25,7 @@ namespace inaccalertvolunteers.Activity
             // Create your application here
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             base.OnResume();
 
@@ -32,12 +33,26 @@ namespace inaccalertvolunteers.Activity
 
             if (currentUser == null)
             {
-                StartActivity(typeof(loginActivity));
+                await SimulateStartup();
             }
             else
             {
-                StartActivity(typeof(MainActivity));
+                await SimulateMainActivity();
             }
+        }
+
+        async Task SimulateStartup()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(8));
+            StartActivity(typeof(loginActivity));
+            OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
+        }
+
+        async Task SimulateMainActivity()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(8));
+            StartActivity(typeof(MainActivity));
+            OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
         }
     }
 }

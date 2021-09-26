@@ -153,7 +153,7 @@ namespace inaccalertvolunteers
                 //When user wants to go Online
                 availabilitystatus = true;
                 mFragment.GoOnline(); // mapnotificationfragment is already define so use mFragment
-                Toast.MakeText(this, "Enable to Receive Accident Request", ToastLength.Short).Show();
+                //Toast.MakeText(this, "Enable to Receive Accident Request", ToastLength.Short).Show();
                 onlinebtn.Text = "Go Offline";
                 onlinebtn.SetTextColor(Color.White);
                 onlinebtn.Background = ContextCompat.GetDrawable(this, Resource.Drawable.btnOffline);
@@ -204,9 +204,5 @@ namespace inaccalertvolunteers
             return permissionedGranted;
         }
 
-        void GoOnline()
-        {
-            
-        }
     }
 }

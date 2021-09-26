@@ -16,7 +16,8 @@ namespace inaccalertvolunteers.Helper
 {
     public static class AppDataHelper
     {
-        static ISharedPreferences pref = Application.Context.GetSharedPreferences("userinfo", FileCreationMode.Private);
+        // use the created folder
+        static ISharedPreferences pref = Application.Context.GetSharedPreferences("volunteerinfo", FileCreationMode.Private);
         public static FirebaseDatabase Getdatabase()
         {
             var app = FirebaseApp.InitializeApp(Application.Context);
@@ -94,10 +95,10 @@ namespace inaccalertvolunteers.Helper
             return mUser;
         }
 
-        public static string Getfullname()
+        public static string Getname()
         {
-            string fullname = pref.GetString("fullname", "");
-            return fullname;
+            string name = pref.GetString("name", "");
+            return name;
         }
         public static string Getemail()
         {
@@ -108,6 +109,11 @@ namespace inaccalertvolunteers.Helper
         {
             string phone = pref.GetString("phone", "");
             return phone;
+        }
+        public static string Getaccstatus()
+        {
+            string accstatus = pref.GetString("acc_status", "");
+            return accstatus;
         }
     }
 }

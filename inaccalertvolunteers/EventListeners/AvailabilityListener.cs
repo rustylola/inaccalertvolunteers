@@ -31,6 +31,7 @@ namespace inaccalertvolunteers.EventListeners
         public void Create(Android.Locations.Location mylocation)
         {
             //when volunteer online, it will create information and location in firebasedatabase
+
             database = AppDataHelper.Getdatabase();
             string volunteerID = AppDataHelper.Getcurrentuser().Uid;
             availabilityref = database.GetReference("volunteerAvailable/" + volunteerID);

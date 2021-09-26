@@ -57,7 +57,7 @@
                 android:id="@+id/secondlayerloginuser">
 
                 <ImageView
-                    android:src="@drawable/usericoninput"
+                    android:src="@drawable/passiconinput"
                     android:layout_marginTop="5dp"
                     android:layout_width="55dp"
                     android:layout_height="45dp"
@@ -87,7 +87,7 @@
                 android:id="@+id/secondlayerloginpass">
 
                 <ImageView
-                    android:src="@drawable/passiconinput"
+                    android:src="@drawable/usericoninput"
                     android:layout_marginTop="5dp"
                     android:layout_width="55dp"
                     android:layout_height="45dp"
