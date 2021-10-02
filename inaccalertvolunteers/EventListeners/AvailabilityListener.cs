@@ -18,6 +18,14 @@ namespace inaccalertvolunteers.EventListeners
     {
         FirebaseDatabase database;
         DatabaseReference availabilityref;
+
+        public class AccidentAssignedEventargs : EventArgs
+        {
+            public string accidentID { get; set; }
+        }
+        public event EventHandler<AccidentAssignedEventargs> accidentAssigned;
+        public event EventHandler accidentCancelled;
+        public event EventHandler accidentTimeout;
         public void OnCancelled(DatabaseError error)
         {
 
@@ -25,7 +33,26 @@ namespace inaccalertvolunteers.EventListeners
 
         public void OnDataChange(DataSnapshot snapshot)
         {
-            
+            if (snapshot.Value != null)
+            {
+                string accident_id = snapshot.Child("accident_id").Value.ToString();
+
+                if (accident_id != "waiting" && accident_id != "timeout" && accident_id != "cancelled")
+                {
+                    //assigned
+                    accidentAssigned?.Invoke(this, new AccidentAssignedEventargs{ accidentID = accident_id});
+                }
+                else if (accident_id == "timeout")
+                {
+                    //ride timeout
+                    accidentTimeout?.Invoke(this, new EventArgs());
+                }
+                else if (accident_id == "cancelled")
+                {
+                    //ride cancelled
+                    accidentCancelled?.Invoke(this, new EventArgs());
+                }
+            }
         }
 
         public void Create(Android.Locations.Location mylocation)
@@ -38,11 +65,11 @@ namespace inaccalertvolunteers.EventListeners
 
             HashMap location = new HashMap();
             location.Put("latitude", mylocation.Latitude);
-            location.Put("longiture", mylocation.Longitude);
+            location.Put("longitude", mylocation.Longitude);
 
             HashMap volunteerInfo = new HashMap();
             volunteerInfo.Put("location", location);
-            volunteerInfo.Put("volunteer_id", "waiting");
+            volunteerInfo.Put("accident_id", "waiting");
 
             availabilityref.AddValueEventListener(this);
             availabilityref.SetValue(volunteerInfo);
@@ -69,6 +96,10 @@ namespace inaccalertvolunteers.EventListeners
                 locationMap.Put("longitude", myUpdateLocation.Longitude);
                 locationref.SetValue(locationMap);
             }
+        }
+        public void ReActivate()
+        {
+            availabilityref.Child("accident_id").SetValue("waiting");
         }
     }
 }

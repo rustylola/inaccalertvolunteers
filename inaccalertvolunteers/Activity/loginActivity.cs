@@ -112,8 +112,8 @@ namespace inaccalertvolunteers.Activity
         //failure event
         private void TaskCompletionListener_Failure(object sender, EventArgs e)
         {
+            Snackbar.Make(rootview, "Login Failed, Check your Email and password.", Snackbar.LengthShort).Show();
             closeprogressDialog();
-            Snackbar.Make(rootview, "Login Failed", Snackbar.LengthShort).Show();
             return;
         }
 
@@ -130,7 +130,6 @@ namespace inaccalertvolunteers.Activity
             alert = new Android.Support.V7.App.AlertDialog.Builder(this);
             alert.SetView(Resource.Layout.progressdialogue);
             alert.SetCancelable(false);
-            alert.Show();
             alertDialog = alert.Show();
         }
 

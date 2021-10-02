@@ -11,6 +11,7 @@ using Android.Support.V4.View;
 using Android.Support.V7.App;
 using Android.Widget;
 using inaccalertvolunteers.Adapter;
+using inaccalertvolunteers.DataModel;
 using inaccalertvolunteers.EventListeners;
 using inaccalertvolunteers.Fragments;
 using inaccalertvolunteers.Helper;
@@ -32,6 +33,7 @@ namespace inaccalertvolunteers
         profileFragment pFragment = new profileFragment();
         mapnotificationfragment mFragment = new mapnotificationfragment();
         historyFragment hFragment = new historyFragment();
+        AccidentDialogueFragment accidentDialogueFragment;
 
         //Create permission
         const int requestID = 0;
@@ -44,6 +46,7 @@ namespace inaccalertvolunteers
         //eventlisteners
         ProfileEventListener profileEventListener = new ProfileEventListener();
         AvailabilityListener availabilityListener;
+        AccidentDetailsListener accidentDetailsListener;
 
         //Update Map inside AvailabilityListener
         Android.Locations.Location myLastLocation;
@@ -51,6 +54,9 @@ namespace inaccalertvolunteers
 
         //flags
         bool availabilitystatus;
+        //datamodel
+        AccidentDetails newAccidentDetail;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -109,6 +115,50 @@ namespace inaccalertvolunteers
         {
             availabilityListener = new AvailabilityListener();
             availabilityListener.Create(myLastLocation);
+            //Toast display online
+            Toast.MakeText(this, "This volunteer are now online.", ToastLength.Long).Show();
+            availabilityListener.accidentAssigned += AvailabilityListener_accidentAssigned;
+            availabilityListener.accidentCancelled += AvailabilityListener_accidentCancelled;
+            availabilityListener.accidentTimeout += AvailabilityListener_accidentTimeout;
+        }
+
+        //Assign accident Event
+        private void AvailabilityListener_accidentAssigned(object sender, AvailabilityListener.AccidentAssignedEventargs e)
+        {
+            Toast.MakeText(this, "New accident request assigned =" + e.accidentID, ToastLength.Short).Show();
+            //Take details
+            accidentDetailsListener = new AccidentDetailsListener();
+            accidentDetailsListener.Create(e.accidentID);
+            accidentDetailsListener.AccidentDetailFound += AccidentDetailsListener_AccidentDetailFound;
+            accidentDetailsListener.AccidentDetailNotFound += AccidentDetailsListener_AccidentDetailNotFound;
+        }
+        //Accident Found event
+        private void AccidentDetailsListener_AccidentDetailFound(object sender, AccidentDetailsListener.AccidentDetailsEventArgs e)
+        {
+            newAccidentDetail = e.Accidentdatail;
+            accidentDialogueFragment = new AccidentDialogueFragment(newAccidentDetail.userName, newAccidentDetail.accidentAddress);
+            accidentDialogueFragment.Cancelable = false;
+            var trans = SupportFragmentManager.BeginTransaction();
+            accidentDialogueFragment.Show(trans, "Request");
+        }
+        //Accident Not Found event
+        private void AccidentDetailsListener_AccidentDetailNotFound(object sender, EventArgs e)
+        {
+            
+        }
+
+        //Timeout accident event
+        private void AvailabilityListener_accidentTimeout(object sender, EventArgs e)
+        {
+            Toast.MakeText(this, "Accident request Timeout assigned", ToastLength.Short).Show();
+            availabilityListener.ReActivate();
+        }
+
+        //Cancelled accident event
+        private void AvailabilityListener_accidentCancelled(object sender, EventArgs e)
+        {
+            Toast.MakeText(this, "Accident request Cancelled assigned", ToastLength.Short).Show();
+            availabilityListener.ReActivate();
         }
 
         void TakevolunteerOffline()

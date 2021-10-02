@@ -45,4 +45,8 @@
 
   <string name="currentlocationstring">Current Location</string>
   <string name="mylocationicon">My Location</string>
+  
+  <string name="accidentReq">Accident Request</string>
+  <string name="reject">Reject</string>
+  <string name="accept">Accept Request</string>
 </resources>

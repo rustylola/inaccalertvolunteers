@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:minWidth="350dp"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+            android:contentDescription="@string/icon_app"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_logo"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:text="@string/accidentReq"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/loginPrimary"/>
+
+    <LinearLayout
+        android:id="@+id/usernametextview"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal">
+    
+        <ImageView
+            android:contentDescription="@string/icon_app"
+            android:layout_weight="0.2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@drawable/ic_name"/>
+        <RelativeLayout
+            android:id="@+id/textviewnamerequest"
+            android:layout_weight="0.8"
+            android:layout_width="1dp"
+            android:layout_height="match_parent">
+        
+            <TextView
+                android:id="@+id/requestname"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@string/fullname"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/loginPrimary"/>
+
+    <LinearLayout
+        android:id="@+id/userlocationtextview"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal">
+    
+        <ImageView
+            android:contentDescription="@string/icon_app"
+            android:layout_weight="0.2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@drawable/ic_useraddress"/>
+        <RelativeLayout
+            android:id="@+id/locationnamerequest"
+            android:layout_weight="0.8"
+            android:layout_width="1dp"
+            android:layout_height="match_parent">
+        
+            <TextView
+                android:id="@+id/locationaddress"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@string/currentlocationstring"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/loginPrimary"/>
+
+    <LinearLayout
+        android:id="@+id/dialoguEeventbtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        
+        <RelativeLayout
+            android:id="@+id/rejecybtnlyout"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <Button
+                android:id="@+id/rejecyBtn"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btnstyleplain"
+                android:textAllCaps="false"
+                android:text="@string/reject"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/acceptbtnlyout"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+            <Button
+                android:id="@+id/acceptBtn"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btnstyleplain"
+                android:textAllCaps="false"
+                android:text="@string/accept"/>
+
+        </RelativeLayout>
+        
+
+    </LinearLayout>
+
+</LinearLayout>

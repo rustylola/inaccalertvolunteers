@@ -69,9 +69,12 @@
     <Compile Include="Activity\RegistrationActivity.cs" />
     <Compile Include="Activity\splashActivity.cs" />
     <Compile Include="Adapter\ViewPagerAdapter.cs" />
+    <Compile Include="DataModel\AccidentDetails.cs" />
+    <Compile Include="EventListeners\AccidentDetailsListener.cs" />
     <Compile Include="EventListeners\AvailabilityListener.cs" />
     <Compile Include="EventListeners\ProfileEventListener.cs" />
     <Compile Include="EventListeners\TaskCompletionListeners.cs" />
+    <Compile Include="Fragments\AccidentDialogueFragment.cs" />
     <Compile Include="Fragments\historyFragment.cs" />
     <Compile Include="Fragments\mapnotificationfragment.cs" />
     <Compile Include="Fragments\profileFragment.cs" />
@@ -279,6 +282,20 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\btnOffline.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\AccidentDialogue.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_name.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_useraddress.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
