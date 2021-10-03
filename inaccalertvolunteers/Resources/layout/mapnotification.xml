@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
 
-    <FrameLayout
-        android:id="@+id/mapcontent"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_weight="0.9">
-
-        <fragment
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            class="com.google.android.gms.maps.SupportMapFragment"/>
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.SupportMapFragment"/>
 
 
-        <ImageView
-            android:contentDescription="@string/icon_app"
-            android:id="@+id/centerMarker"
-            android:layout_height="40dp"
-            android:layout_width="40dp"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:src="@drawable/ic_pinme"/>
+    <ImageView
+        android:contentDescription="@string/icon_app"
+        android:id="@+id/centerMarker"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:src="@drawable/ic_pinme"/>
 
-    </FrameLayout>
 
-</LinearLayout>
+</FrameLayout>

@@ -72,6 +72,7 @@
     <Compile Include="DataModel\AccidentDetails.cs" />
     <Compile Include="EventListeners\AccidentDetailsListener.cs" />
     <Compile Include="EventListeners\AvailabilityListener.cs" />
+    <Compile Include="EventListeners\NewAccidentRequestListener.cs" />
     <Compile Include="EventListeners\ProfileEventListener.cs" />
     <Compile Include="EventListeners\TaskCompletionListeners.cs" />
     <Compile Include="Fragments\AccidentDialogueFragment.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Fragments\profileFragment.cs" />
     <Compile Include="Helper\AppDataHelper.cs" />
     <Compile Include="Helper\LocationCallbackHelper.cs" />
+    <Compile Include="Helper\NotificationHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,6 +298,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_useraddress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Raw\AccidentAlert.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\btnstylered.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

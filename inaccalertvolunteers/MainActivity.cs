@@ -2,6 +2,7 @@
 using Android.App;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
+using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -54,9 +55,14 @@ namespace inaccalertvolunteers
 
         //flags
         bool availabilitystatus;
+        bool isBackground;
+        bool newAccidentAssigned;
+
         //datamodel
         AccidentDetails newAccidentDetail;
 
+        //Media player
+        MediaPlayer musicplayer;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -132,15 +138,43 @@ namespace inaccalertvolunteers
             accidentDetailsListener.AccidentDetailFound += AccidentDetailsListener_AccidentDetailFound;
             accidentDetailsListener.AccidentDetailNotFound += AccidentDetailsListener_AccidentDetailNotFound;
         }
+
         //Accident Found event
         private void AccidentDetailsListener_AccidentDetailFound(object sender, AccidentDetailsListener.AccidentDetailsEventArgs e)
         {
             newAccidentDetail = e.Accidentdatail;
+            if (!isBackground)
+            {
+                CreateAccidentRequestDialogue();
+            }
+            else
+            {
+                newAccidentAssigned = true;
+                NotificationHelper notificationHelper = new NotificationHelper();
+                if ((int)Build.VERSION.SdkInt >= 26)
+                {
+                    notificationHelper.NotifyVersion26(this, Resources, (NotificationManager)GetSystemService(NotificationService));
+                }
+                else
+                {
+                    notificationHelper.NotifyOtherVersion(this, Resources, (NotificationManager)GetSystemService(NotificationService));
+                }
+                
+            }
+
+        }
+        void CreateAccidentRequestDialogue()
+        {
             accidentDialogueFragment = new AccidentDialogueFragment(newAccidentDetail.userName, newAccidentDetail.accidentAddress);
             accidentDialogueFragment.Cancelable = false;
             var trans = SupportFragmentManager.BeginTransaction();
             accidentDialogueFragment.Show(trans, "Request");
+
+            //Play Music Alert
+            musicplayer = MediaPlayer.Create(this, Resource.Raw.AccidentAlert);
+            musicplayer.Start();
         }
+
         //Accident Not Found event
         private void AccidentDetailsListener_AccidentDetailNotFound(object sender, EventArgs e)
         {
@@ -150,6 +184,14 @@ namespace inaccalertvolunteers
         //Timeout accident event
         private void AvailabilityListener_accidentTimeout(object sender, EventArgs e)
         {
+            if (accidentDialogueFragment != null)
+            {
+                accidentDialogueFragment.Dismiss();
+                accidentDialogueFragment = null;
+                musicplayer.Stop();
+                musicplayer = null;
+            }
+
             Toast.MakeText(this, "Accident request Timeout assigned", ToastLength.Short).Show();
             availabilityListener.ReActivate();
         }
@@ -157,6 +199,14 @@ namespace inaccalertvolunteers
         //Cancelled accident event
         private void AvailabilityListener_accidentCancelled(object sender, EventArgs e)
         {
+            if (accidentDialogueFragment != null)
+            {
+                accidentDialogueFragment.Dismiss();
+                accidentDialogueFragment = null;
+                musicplayer.Stop();
+                musicplayer = null;
+            }
+
             Toast.MakeText(this, "Accident request Cancelled assigned", ToastLength.Short).Show();
             availabilityListener.ReActivate();
         }
@@ -254,5 +304,20 @@ namespace inaccalertvolunteers
             return permissionedGranted;
         }
 
+        protected override void OnPause()
+        {
+            isBackground = true;
+            base.OnPause();
+        }
+        protected override void OnResume()
+        {
+            isBackground = false;
+            if (newAccidentAssigned)
+            {
+                CreateAccidentRequestDialogue();
+                newAccidentAssigned = false;
+            }
+            base.OnResume();
+        }
     }
 }
