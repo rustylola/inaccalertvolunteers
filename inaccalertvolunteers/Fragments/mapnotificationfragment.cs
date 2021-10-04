@@ -40,6 +40,15 @@ namespace inaccalertvolunteers.Fragments
         //layouts
         ImageView marker;
 
+        //layout for accepting request
+        LinearLayout callandarrivelayout;
+        RelativeLayout callbtn;
+        Button arrivebtn;
+        TextView usersName;
+
+        //flags
+        bool isCreated = false;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -54,6 +63,13 @@ namespace inaccalertvolunteers.Fragments
             View view = inflater.Inflate(Resource.Layout.mapnotification, container, false);
             //initialize map
             marker = (ImageView)view.FindViewById(Resource.Id.centerMarker);
+            //initialize accept layout
+            callandarrivelayout = (LinearLayout)view.FindViewById(Resource.Id.callandarrivelayout);
+            callbtn = (RelativeLayout)view.FindViewById(Resource.Id.calluserbtn);
+            arrivebtn = (Button)view.FindViewById(Resource.Id.arrivebtn);
+            usersName = (TextView)view.FindViewById(Resource.Id.usernameacc);
+
+            //map configure
             SupportMapFragment mapFragment = (SupportMapFragment)ChildFragmentManager.FindFragmentById(Resource.Id.map);
             mapFragment.GetMapAsync(this);
             createLocationRequest();
@@ -136,6 +152,14 @@ namespace inaccalertvolunteers.Fragments
         {
             stopLocationUpdate();
             marker.Visibility = ViewStates.Invisible;
+        }
+
+        public void accidentCreate(string usersname)
+        {
+            marker.Visibility = ViewStates.Invisible;
+            usersName.Text = usersname;
+            callandarrivelayout.Visibility = ViewStates.Visible;
+            isCreated = true;
         }
     }
 }

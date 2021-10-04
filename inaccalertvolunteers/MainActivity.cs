@@ -48,6 +48,7 @@ namespace inaccalertvolunteers
         ProfileEventListener profileEventListener = new ProfileEventListener();
         AvailabilityListener availabilityListener;
         AccidentDetailsListener accidentDetailsListener;
+        NewAccidentRequestListener NewAccidentRequestListener;
 
         //Update Map inside AvailabilityListener
         Android.Locations.Location myLastLocation;
@@ -57,12 +58,20 @@ namespace inaccalertvolunteers
         bool availabilitystatus;
         bool isBackground;
         bool newAccidentAssigned;
+        string status = "NORMAL"; //REQUESTFOUND , ACCEPTED , ONTRIP 
 
         //datamodel
         AccidentDetails newAccidentDetail;
 
         //Media player
         MediaPlayer musicplayer;
+
+        //helper
+        MapFunctionHelper mapHelper;
+
+        //Alert Dialog inialize
+        Android.Support.V7.App.AlertDialog.Builder alert;
+        Android.Support.V7.App.AlertDialog alertDialog;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -72,6 +81,10 @@ namespace inaccalertvolunteers
             Frontfragment();
             checkPermission();
             profileEventListener.Create();
+
+            //Do something here if user acc_status is processing
+            //if processing sign out else continue
+
         }
 
         void Frontfragment()
@@ -115,6 +128,15 @@ namespace inaccalertvolunteers
             {
                 TakevolunteerOnline();
             }
+
+            if (status == "ACCEPTED")
+            {
+                //update or animate movement
+                LatLng accidentLatlng = new LatLng(newAccidentDetail.accidentLat, newAccidentDetail.accidentLng);
+                mapHelper.UpdateMovement(myLatlng, accidentLatlng, "Accident Location");
+                //update location from firebase 
+                NewAccidentRequestListener.UpdateLocation(myLastLocation);
+            }
         }
 
         private void TakevolunteerOnline()
@@ -131,7 +153,8 @@ namespace inaccalertvolunteers
         //Assign accident Event
         private void AvailabilityListener_accidentAssigned(object sender, AvailabilityListener.AccidentAssignedEventargs e)
         {
-            Toast.MakeText(this, "New accident request assigned =" + e.accidentID, ToastLength.Short).Show();
+            //Show Assign ID
+            //Toast.MakeText(this, "New accident request assigned =" + e.accidentID, ToastLength.Short).Show();
             //Take details
             accidentDetailsListener = new AccidentDetailsListener();
             accidentDetailsListener.Create(e.accidentID);
@@ -142,6 +165,11 @@ namespace inaccalertvolunteers
         //Accident Found event
         private void AccidentDetailsListener_AccidentDetailFound(object sender, AccidentDetailsListener.AccidentDetailsEventArgs e)
         {
+            if (status != "NORMAL")
+            {
+                return;
+            }
+
             newAccidentDetail = e.Accidentdatail;
             if (!isBackground)
             {
@@ -155,11 +183,6 @@ namespace inaccalertvolunteers
                 {
                     notificationHelper.NotifyVersion26(this, Resources, (NotificationManager)GetSystemService(NotificationService));
                 }
-                else
-                {
-                    notificationHelper.NotifyOtherVersion(this, Resources, (NotificationManager)GetSystemService(NotificationService));
-                }
-                
             }
 
         }
@@ -173,6 +196,56 @@ namespace inaccalertvolunteers
             //Play Music Alert
             musicplayer = MediaPlayer.Create(this, Resource.Raw.AccidentAlert);
             musicplayer.Start();
+            accidentDialogueFragment.VolunteerAccepted += AccidentDialogueFragment_VolunteerAccepted;
+            accidentDialogueFragment.VolunteerRejected += AccidentDialogueFragment_VolunteerRejected;
+        }
+
+        //rejected
+        private void AccidentDialogueFragment_VolunteerRejected(object sender, EventArgs e)
+        {
+            //stop alert
+            if (musicplayer != null)
+            {
+                musicplayer.Stop();
+                musicplayer = null;
+            }
+            //dismiss dialogue
+            if (accidentDialogueFragment != null)
+            {
+                accidentDialogueFragment.Dismiss();
+                accidentDialogueFragment = null;
+            }
+            //return driver online
+            availabilityListener.ReActivate();
+        }
+
+        //accepted
+        async void AccidentDialogueFragment_VolunteerAccepted(object sender, EventArgs e)
+        {
+            NewAccidentRequestListener = new NewAccidentRequestListener(newAccidentDetail.accidentID, myLastLocation);
+            NewAccidentRequestListener.Create();
+            status = "ACCEPTED";
+            //stop alert
+            if (musicplayer != null)
+            {
+                musicplayer.Stop();
+                musicplayer = null;
+            }
+            //dismiss dialogue
+            if (accidentDialogueFragment != null)
+            {
+                accidentDialogueFragment.Dismiss();
+                accidentDialogueFragment = null;
+            }
+
+            mFragment.accidentCreate(newAccidentDetail.userName);
+            //Do someting here
+            mapHelper = new MapFunctionHelper(Resources.GetString(Resource.String.mapkey),mFragment.mainMap);
+            LatLng accidentLocation = new LatLng(newAccidentDetail.accidentLat, newAccidentDetail.accidentLng);
+            showprogressDialog();
+            string directionjson = await mapHelper.GetDirectionJsonAsync(myLatlng,accidentLocation);
+            closeprogressDialog();
+            mapHelper.DrawAccidentOnMap(directionjson);
         }
 
         //Accident Not Found event
@@ -184,6 +257,7 @@ namespace inaccalertvolunteers
         //Timeout accident event
         private void AvailabilityListener_accidentTimeout(object sender, EventArgs e)
         {
+            //dismiss dialogue and remove alert
             if (accidentDialogueFragment != null)
             {
                 accidentDialogueFragment.Dismiss();
@@ -191,7 +265,7 @@ namespace inaccalertvolunteers
                 musicplayer.Stop();
                 musicplayer = null;
             }
-
+            //return driver online
             Toast.MakeText(this, "Accident request Timeout assigned", ToastLength.Short).Show();
             availabilityListener.ReActivate();
         }
@@ -199,6 +273,7 @@ namespace inaccalertvolunteers
         //Cancelled accident event
         private void AvailabilityListener_accidentCancelled(object sender, EventArgs e)
         {
+            //dismiss dialogue and remove alert
             if (accidentDialogueFragment != null)
             {
                 accidentDialogueFragment.Dismiss();
@@ -206,7 +281,7 @@ namespace inaccalertvolunteers
                 musicplayer.Stop();
                 musicplayer = null;
             }
-
+            //return driver online
             Toast.MakeText(this, "Accident request Cancelled assigned", ToastLength.Short).Show();
             availabilityListener.ReActivate();
         }
@@ -318,6 +393,24 @@ namespace inaccalertvolunteers
                 newAccidentAssigned = false;
             }
             base.OnResume();
+        }
+
+        void showprogressDialog()
+        {
+            alert = new Android.Support.V7.App.AlertDialog.Builder(this);
+            alert.SetView(Resource.Layout.progressdialogue);
+            alert.SetCancelable(false);
+            alertDialog = alert.Show();
+        }
+
+        void closeprogressDialog()
+        {
+            if (alert != null)
+            {
+                alertDialog.Dismiss();
+                alertDialog = null;
+                alert = null;
+            }
         }
     }
 }

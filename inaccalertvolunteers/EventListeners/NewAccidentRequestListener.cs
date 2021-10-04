@@ -47,16 +47,23 @@ namespace inaccalertvolunteers.EventListeners
         public void Create()
         {
             Accidentref = database.GetReference("accidentRequest/" + mAccidentid);
-            Accidentref.AddValueEventListener(this);
+            Accidentref.AddValueEventListener(this); //addvalueeventlistener
         }
         void Accept()
         {
             Accidentref.Child("status").SetValue("accept");
             Accidentref.Child("volunteer_name").SetValue(AppDataHelper.Getname());
             Accidentref.Child("volunteer_phone").SetValue(AppDataHelper.Getphone());
-            Accidentref.Child("volunteer_location").Child("latitude").SetValue(mLastlocation.Latitude);
-            Accidentref.Child("volunteer_location").Child("longitude").SetValue(mLastlocation.Longitude);
+            Accidentref.Child("volunteerlocation").Child("latitude").SetValue(mLastlocation.Latitude);
+            Accidentref.Child("volunteerlocation").Child("longitude").SetValue(mLastlocation.Longitude);
             Accidentref.Child("volunteerID").SetValue(AppDataHelper.Getcurrentuser().Uid);
+        }
+
+        public void UpdateLocation(Android.Locations.Location lastlocation)
+        {
+            mLastlocation = lastlocation;
+            Accidentref.Child("volunteerlocation").Child("latitude").SetValue(mLastlocation.Latitude);
+            Accidentref.Child("volunteerlocation").Child("longitude").SetValue(mLastlocation.Longitude);
         }
     }
 }

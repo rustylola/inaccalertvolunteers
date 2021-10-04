@@ -20,5 +20,69 @@
         android:visibility="invisible"
         android:src="@drawable/ic_pinme"/>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/callandarrivelayout"
+        android:visibility="invisible"
+        android:layout_height="130dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:padding="13dp"
+        android:background="@color/btnColorWhite">
+
+        <TextView
+            android:id="@+id/usernameacc"
+            android:text="@string/fullname"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="20sp"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/loginPrimary"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/callandmakereport"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@color/btnColorWhite">
+
+            <RelativeLayout
+            android:id="@+id/calluserbtn"
+            android:clickable="true"
+            android:layout_weight="0.9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btnstyleplain"
+            android:layout_marginRight="5dp">
+            
+            <ImageView
+                android:contentDescription="@string/call"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_call"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/arrivebtn"
+            android:text="@string/arriveaccident"
+            android:textColor="@color/btnColorWhite"
+            android:layout_weight="0.3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btnstylered"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

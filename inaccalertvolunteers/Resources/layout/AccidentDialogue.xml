@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
+                android:textStyle="bold"
                 android:text="@string/fullname"/>
         </RelativeLayout>
 
@@ -85,6 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
+                android:textStyle="bold"
                 android:text="@string/currentlocationstring"/>
         </RelativeLayout>
 

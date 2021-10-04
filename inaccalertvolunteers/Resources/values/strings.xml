@@ -49,4 +49,7 @@
   <string name="accidentReq">Accident Request</string>
   <string name="reject">Reject</string>
   <string name="accept">Accept Request</string>
+
+  <string name="call">Call</string>
+  <string name="arriveaccident">Arrive in Accident</string>
 </resources>
