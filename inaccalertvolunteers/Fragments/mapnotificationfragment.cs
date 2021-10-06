@@ -48,6 +48,15 @@ namespace inaccalertvolunteers.Fragments
 
         //flags
         bool isCreated = false;
+        bool volunteerArrive = false;
+
+        //events
+        public event EventHandler VolunteerAccidentArrive;
+        public event EventHandler CallUser;
+        public event EventHandler Makereport;
+
+        //layout for creating report
+
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -68,13 +77,40 @@ namespace inaccalertvolunteers.Fragments
             callbtn = (RelativeLayout)view.FindViewById(Resource.Id.calluserbtn);
             arrivebtn = (Button)view.FindViewById(Resource.Id.arrivebtn);
             usersName = (TextView)view.FindViewById(Resource.Id.usernameacc);
-
+            //event click
+            arrivebtn.Click += Arrivebtn_Click;
+            callbtn.Click += Callbtn_Click;
             //map configure
             SupportMapFragment mapFragment = (SupportMapFragment)ChildFragmentManager.FindFragmentById(Resource.Id.map);
             mapFragment.GetMapAsync(this);
             createLocationRequest();
             continuelocation();
             return view;
+        }
+        //Call User click
+        private void Callbtn_Click(object sender, EventArgs e)
+        {
+            CallUser?.Invoke(this, new EventArgs());
+        }
+
+        //arrive click
+        private void Arrivebtn_Click(object sender, EventArgs e)
+        {
+            //Arrive Event
+            if (!volunteerArrive && isCreated)
+            {
+                volunteerArrive = true;
+                VolunteerAccidentArrive?.Invoke(this, new EventArgs());
+                arrivebtn.Text = "Make a Report";
+                Toast.MakeText(Activity, "Notifying the User for your Arrival.", ToastLength.Long).Show();
+                return;
+            }
+            //Make Report Event
+            if (volunteerArrive)
+            {
+                Makereport?.Invoke(this, new EventArgs());
+                return;
+            }
         }
 
         public void OnMapReady(GoogleMap googleMap)
@@ -160,6 +196,20 @@ namespace inaccalertvolunteers.Fragments
             usersName.Text = usersname;
             callandarrivelayout.Visibility = ViewStates.Visible;
             isCreated = true;
+        }
+
+        public void ResetAfterReport()
+        {
+            arrivebtn.Text = "Arrive in Accident";
+            marker.Visibility = ViewStates.Visible;
+            usersName.Text = "User name";
+            callandarrivelayout.Visibility = ViewStates.Invisible;
+            isCreated = false;
+            volunteerArrive = false;
+            //accident started
+            mainMap.Clear();
+            mainMap.TrafficEnabled = false;
+            mainMap.UiSettings.ZoomControlsEnabled = false;
         }
     }
 }

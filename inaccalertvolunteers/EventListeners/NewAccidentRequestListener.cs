@@ -26,7 +26,6 @@ namespace inaccalertvolunteers.EventListeners
             mAccidentid = accident_id;
             mLastlocation = lastlocation;
             database = AppDataHelper.Getdatabase();
-
         }
         public void OnCancelled(DatabaseError error)
         {
@@ -64,6 +63,20 @@ namespace inaccalertvolunteers.EventListeners
             mLastlocation = lastlocation;
             Accidentref.Child("volunteerlocation").Child("latitude").SetValue(mLastlocation.Latitude);
             Accidentref.Child("volunteerlocation").Child("longitude").SetValue(mLastlocation.Longitude);
+        }
+        public void updatestatus(string status)
+        {
+            Accidentref.Child("status").SetValue(status);
+        }
+
+        public void AccidentEnded()
+        {
+            if (Accidentref != null)
+            {
+                Accidentref.Child("status").SetValue("ended");
+                Accidentref.RemoveEventListener(this);
+                Accidentref = null;
+            }
         }
     }
 }

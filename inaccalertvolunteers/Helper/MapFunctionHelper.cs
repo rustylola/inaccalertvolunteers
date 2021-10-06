@@ -9,6 +9,7 @@ using Android.Views;
 using Android.Widget;
 using Com.Google.Maps.Android;
 using inaccalert.Helpers;
+using inaccalertvolunteers.DataModel;
 using Java.Util;
 using Newtonsoft.Json;
 using System;
@@ -22,6 +23,7 @@ namespace inaccalertvolunteers.Helper
 {
     public class MapFunctionHelper
     {
+        AccidentDetails userprofile; 
         string mapkey;
         GoogleMap mainmap;
         public Marker accidentLocMarker;
@@ -61,7 +63,7 @@ namespace inaccalertvolunteers.Helper
             string str_destination = "destination=" + volunteerlocation.Latitude + "," + volunteerlocation.Longitude; //volunteer location is the accident location
 
             //mode
-            string mode = "mode=driving";
+            string mode = "mode=walking";//driving // walking // biking
 
             //Building Parameters for url webservice
             string parameters = str_orig + "&" + str_destination + "&" + mode + "&";
@@ -111,16 +113,17 @@ namespace inaccalertvolunteers.Helper
             MarkerOptions accidentMarker = new MarkerOptions();
             accidentMarker.SetPosition(lastpoint);
             accidentMarker.SetTitle("Accident Location");
+            accidentMarker.SetSnippet("Address : " + userprofile.accidentAddress);
             accidentMarker.SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed));//BitmapDescriptorFactory.FromResource(Resource.Drawable.ic_pinme)
             accidentLocMarker = mainmap.AddMarker(accidentMarker);
 
             ArrayList routeList = new ArrayList();
-            int locationpoints = 0;
+            //int locationpoints = 0;
             foreach (LatLng item in line)
             {
                 routeList.Add(item);
                 //locationpoints++;
-                //Console.WriteLine("Position : " + locationpoints.ToString() + " "+ item.Latitude.ToString() + " , " + item.Longitude.ToString());
+                //Console.WriteLine("Position : " + locationpoints.ToString() + " " + item.Latitude.ToString() + " , " + item.Longitude.ToString());
             }
 
             PolylineOptions polylineOptions = new PolylineOptions()
@@ -134,6 +137,7 @@ namespace inaccalertvolunteers.Helper
 
             mpolyline = mainmap.AddPolyline(polylineOptions);
             mainmap.UiSettings.ZoomControlsEnabled = true;
+            mainmap.TrafficEnabled = true;
             mainmap.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(firstpoint, 18));
             accidentLocMarker.ShowInfoWindow();
         }
@@ -149,8 +153,9 @@ namespace inaccalertvolunteers.Helper
                 string json = await GetDirectionJsonAsync(myLastLocation, accidentLocation);
                 var directionData = JsonConvert.DeserializeObject<DirectionParser>(json);
                 string duration = directionData.routes[0].legs[0].duration.text;
+                string distance = directionData.routes[0].legs[0].distance.text;
                 currentLocMarker.Title = "Current Location";
-                currentLocMarker.Snippet = duration + " Away from " + fromto;
+                currentLocMarker.Snippet = duration + " / " + distance + " Away from " + fromto;
                 currentLocMarker.ShowInfoWindow();
                 isrequestingDirection = false;
             }

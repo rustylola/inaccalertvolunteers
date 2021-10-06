@@ -1,5 +1,6 @@
 ﻿using Android;
 using Android.App;
+using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
 using Android.Media;
@@ -68,6 +69,7 @@ namespace inaccalertvolunteers
 
         //helper
         MapFunctionHelper mapHelper;
+        MakeReportsFragment reportfragment;
 
         //Alert Dialog inialize
         Android.Support.V7.App.AlertDialog.Builder alert;
@@ -110,8 +112,55 @@ namespace inaccalertvolunteers
             //set viewpager
             setupviewpager();
 
-            //Fragment addlocation
+            //Map notification fragment Events
             mFragment.CurrentLocation += mFragment_currentlocation;
+            mFragment.VolunteerAccidentArrive += MFragment_VolunteerAccidentArrive;
+            mFragment.CallUser += MFragment_CallUser;
+            mFragment.Makereport += MFragment_Makereport;
+        }
+        //Do or make report
+        private void MFragment_Makereport(object sender, EventArgs e)
+        {
+            status = "NORMAL";
+            //input first all the information for report
+            //HERE
+            showprogressDialog();
+            string nameofuseraccident = newAccidentDetail.userName;
+            string nameofvolunteer = AppDataHelper.Getname();
+            string accidentaddress = newAccidentDetail.accidentAddress;
+            closeprogressDialog();
+            reportfragment = new MakeReportsFragment(nameofuseraccident,nameofvolunteer,accidentaddress);
+            reportfragment.Cancelable = false;
+            var trans = SupportFragmentManager.BeginTransaction();
+            reportfragment.Show(trans, "Report Sending");
+            reportfragment.ReportSend += (o, u) =>
+            {
+                reportfragment.Dismiss();
+            };
+
+            //reset app
+            mFragment.ResetAfterReport();
+            //Accident List of Information
+            NewAccidentRequestListener.AccidentEnded();
+            NewAccidentRequestListener = null;
+            availabilityListener.ReActivate();
+        }
+
+        //Call User event
+        private void MFragment_CallUser(object sender, EventArgs e)
+        {
+            var uri = Android.Net.Uri.Parse("tel:" + newAccidentDetail.userPhone);
+            Intent intent = new Intent(Intent.ActionDial, uri);
+            StartActivity(intent);
+        }
+
+        //Arrive event
+        private void MFragment_VolunteerAccidentArrive(object sender, EventArgs e)
+        {
+            //notifies user
+            NewAccidentRequestListener.updatestatus("arrive");
+            status = "ARRIVE";
+            //LatLng accidentlatlng = new LatLng(newAccidentDetail.accidentLat, newAccidentDetail.accidentLng);
         }
 
         void mFragment_currentlocation(object sender, LocationCallbackHelper.OnLocationCapturedEventArgs e)
@@ -137,6 +186,10 @@ namespace inaccalertvolunteers
                 //update location from firebase 
                 NewAccidentRequestListener.UpdateLocation(myLastLocation);
             }
+            //if(status == "ARRIVE")
+            //{
+                //Do something
+            //}
         }
 
         private void TakevolunteerOnline()

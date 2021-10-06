@@ -52,4 +52,29 @@
 
   <string name="call">Call</string>
   <string name="arriveaccident">Arrive in Accident</string>
+
+  <string name="choosecategory">Pick Accident Category</string>
+  <string-array name="indoorAccidents">
+    <item>Falling objects</item>
+    <item>Trips and Falls</item>
+    <item>Bruises or Wound</item>
+    <item>Sprains</item>
+    <item>Cuts</item>
+    <item>Burns</item>
+    <item>Chooking</item>
+    <item>Poisoning</item>
+    <item>Glass-related injuries</item>
+    <item>Heart Attack or Stroke</item>
+    <item>Slip</item>
+    <item>Respiratory Problem</item>
+    <item>Head Injury</item>
+    <item>Fractures</item>
+    <item>Unconscious</item>
+    <item>I will put it on description.</item>
+  </string-array>
+
+  <string name="sendreport">Send Report</string>
+  <string name="createreport">Report Details</string>
+  <string name="accidentaddress">Accident Address</string>
+  
 </resources>
