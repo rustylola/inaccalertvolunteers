@@ -85,8 +85,8 @@ namespace inaccalertvolunteers
             profileEventListener.Create();
 
             //Do something here if user acc_status is processing
-            //if processing sign out else continue
-
+            //if processing unable the user to online
+            
         }
 
         void Frontfragment()
@@ -144,6 +144,8 @@ namespace inaccalertvolunteers
             NewAccidentRequestListener.AccidentEnded();
             NewAccidentRequestListener = null;
             availabilityListener.ReActivate();
+            onlinebtn.Enabled = true; // offline button will enable again
+
         }
 
         //Call User event
@@ -222,8 +224,11 @@ namespace inaccalertvolunteers
             {
                 return;
             }
-
+            //Play Music Alert
+            musicplayer = MediaPlayer.Create(this, Resource.Raw.AccidentAlert);
+            musicplayer.Start();
             newAccidentDetail = e.Accidentdatail;
+
             if (!isBackground)
             {
                 CreateAccidentRequestDialogue();
@@ -247,8 +252,7 @@ namespace inaccalertvolunteers
             accidentDialogueFragment.Show(trans, "Request");
 
             //Play Music Alert
-            musicplayer = MediaPlayer.Create(this, Resource.Raw.AccidentAlert);
-            musicplayer.Start();
+            // move up
             accidentDialogueFragment.VolunteerAccepted += AccidentDialogueFragment_VolunteerAccepted;
             accidentDialogueFragment.VolunteerRejected += AccidentDialogueFragment_VolunteerRejected;
         }
@@ -278,6 +282,7 @@ namespace inaccalertvolunteers
             NewAccidentRequestListener = new NewAccidentRequestListener(newAccidentDetail.accidentID, myLastLocation);
             NewAccidentRequestListener.Create();
             status = "ACCEPTED";
+            onlinebtn.Enabled = false; // in order to not suddenly offline once the user accept it
             //stop alert
             if (musicplayer != null)
             {
@@ -347,6 +352,19 @@ namespace inaccalertvolunteers
 
         private void Onlinebtn_Click(object sender, EventArgs e)
         {
+            //Checking if the account is Processing
+            if (AppDataHelper.Getaccstatus() == "processing")
+            {
+                Android.Support.V7.App.AlertDialog.Builder alertDialog = new Android.Support.V7.App.AlertDialog.Builder(this);
+                alertDialog.SetTitle("Account Checking");
+                alertDialog.SetMessage("Your account is still processing, Try again later or Email us Inaccalert@gmail.com");
+                alertDialog.SetPositiveButton("Continue", (senderAlert, args) => {
+                    return;
+                });
+                alertDialog.Show();
+                return;
+            }
+
             if (!checkPermission())
             {
                 return;

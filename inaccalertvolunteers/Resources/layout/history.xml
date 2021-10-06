@@ -4,27 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/loginPrimary">
+    
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="0.1"
-            android:background="@color/loginPrimary"
+            android:layout_height="match_parent"
             android:id="@+id/continuefbheader">
             <TextView
                 android:text="@string/titlehistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
-                android:layout_marginTop="13dp"
                 android:gravity="center"
                 android:id="@+id/textTitle"
                 android:textColor="@color/loginAccent"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/historycontent"
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="0.9"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:id="@+id/recyclerView"/>
 
 </LinearLayout>

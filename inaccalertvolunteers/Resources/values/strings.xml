@@ -77,5 +77,10 @@
   <string name="sendreport">Send Report</string>
   <string name="createreport">Report Details</string>
   <string name="accidentaddress">Accident Address</string>
+
+  <string name="nameofuser">Name of person notify you</string>
+  <string name="nameofvolunteer">Name of first-aider</string>
+  <string name="addressofaccident">Accident Address</string>
+  <string name="accidentdesc">Accident Description</string>
   
 </resources>

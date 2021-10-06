@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:hint="Name of person notify you"
+                    android:hint="@string/nameofuser"
                     android:inputType="text"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -58,7 +58,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:hint="Name of first-aider"
+                    android:hint="@string/nameofvolunteer"
                     android:inputType="text"/>
              </android.support.design.widget.TextInputLayout>
 
@@ -73,7 +73,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:hint="Accident Address"
+                    android:hint="@string/addressofaccident"
                     android:inputType="text"/>
              </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +96,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:hint="Accident Description"
+                    android:hint="@string/accidentdesc"
                     android:inputType="textMultiLine"
                     android:gravity="top|left"/>
             </android.support.design.widget.TextInputLayout>
