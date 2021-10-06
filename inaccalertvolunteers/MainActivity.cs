@@ -298,7 +298,7 @@ namespace inaccalertvolunteers
             showprogressDialog();
             string directionjson = await mapHelper.GetDirectionJsonAsync(myLatlng,accidentLocation);
             closeprogressDialog();
-            mapHelper.DrawAccidentOnMap(directionjson);
+            mapHelper.DrawAccidentOnMap(directionjson, newAccidentDetail.accidentAddress);
         }
 
         //Accident Not Found event

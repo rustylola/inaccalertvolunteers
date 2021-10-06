@@ -20,7 +20,7 @@ namespace inaccalertvolunteers.Fragments
         string nameofvolunteer;
         string addressofAccident;
         string pickcateg;
-        string description;
+        string accidentdescription;
 
         //initialize layouts
         TextInputLayout usersnametext;
@@ -70,7 +70,6 @@ namespace inaccalertvolunteers.Fragments
             usersnametext.EditText.Text = usernamereport;
             volunteernametext.EditText.Text = nameofvolunteer;
             useraddresstext.EditText.Text = addressofAccident;
-            accidentdesctext.EditText.Text = description;
 
             //click event
             sendreportbtn.Click += Sendreportbtn_Click;
@@ -79,6 +78,7 @@ namespace inaccalertvolunteers.Fragments
 
         private void Sendreportbtn_Click(object sender, EventArgs e)
         {
+            accidentdescription = accidentdesctext.EditText.Text;
             //Do something before close the dialogue
 
             if (pickcateg == "Pick Accident Category")
@@ -87,14 +87,15 @@ namespace inaccalertvolunteers.Fragments
                 return;
             }
             
-            if(description == null)
+            if(accidentdescription == null)
             {
                 Toast.MakeText(Activity, "Accident Description is Empty", ToastLength.Long).Show();
                 return;
             }
 
-            sendreportnow = new SendAccidentReportListener(usernamereport, nameofvolunteer,  pickcateg, description, addressofAccident);
+            sendreportnow = new SendAccidentReportListener(usernamereport, nameofvolunteer,  pickcateg, accidentdescription, addressofAccident);
             sendreportnow.CreateReport();
+            //event 
             ReportSend.Invoke(this, new EventArgs());
         }
 

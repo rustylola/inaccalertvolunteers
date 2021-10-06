@@ -23,7 +23,7 @@ namespace inaccalertvolunteers.Helper
 {
     public class MapFunctionHelper
     {
-        AccidentDetails userprofile; 
+
         string mapkey;
         GoogleMap mainmap;
         public Marker accidentLocMarker;
@@ -82,8 +82,9 @@ namespace inaccalertvolunteers.Helper
             return json;
         }
 
-        public void DrawAccidentOnMap(string json)
+        public void DrawAccidentOnMap(string json, string addressuser)
         {
+
             Android.Gms.Maps.Model.Polyline mpolyline;
             Marker takeoff;
 
@@ -113,7 +114,7 @@ namespace inaccalertvolunteers.Helper
             MarkerOptions accidentMarker = new MarkerOptions();
             accidentMarker.SetPosition(lastpoint);
             accidentMarker.SetTitle("Accident Location");
-            accidentMarker.SetSnippet("Address : " + userprofile.accidentAddress);
+            accidentMarker.SetSnippet("Address : " + addressuser);
             accidentMarker.SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed));//BitmapDescriptorFactory.FromResource(Resource.Drawable.ic_pinme)
             accidentLocMarker = mainmap.AddMarker(accidentMarker);
 

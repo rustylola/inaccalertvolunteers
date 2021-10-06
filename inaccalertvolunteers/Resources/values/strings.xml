@@ -55,6 +55,7 @@
 
   <string name="choosecategory">Pick Accident Category</string>
   <string-array name="indoorAccidents">
+    <item>Pick Accident Category</item>
     <item>Falling objects</item>
     <item>Trips and Falls</item>
     <item>Bruises or Wound</item>
