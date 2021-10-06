@@ -78,6 +78,7 @@
     <Compile Include="EventListeners\AvailabilityListener.cs" />
     <Compile Include="EventListeners\NewAccidentRequestListener.cs" />
     <Compile Include="EventListeners\ProfileEventListener.cs" />
+    <Compile Include="EventListeners\ReportInfoListener.cs" />
     <Compile Include="EventListeners\SendAccidentReportListener.cs" />
     <Compile Include="EventListeners\TaskCompletionListeners.cs" />
     <Compile Include="Fragments\AccidentDialogueFragment.cs" />

@@ -19,6 +19,7 @@ namespace inaccalertvolunteers.DataModel
         public string AccidentAddress { get; set; }
         public string AccidentCateg { get; set; }
         public string AccidentDescription { get; set; }
+        public string Accidentdate { get; set; }
 
     }
 }

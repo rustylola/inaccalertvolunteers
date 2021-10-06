@@ -4899,11 +4899,11 @@ namespace inaccalertvolunteers
 			// aapt resource value: 0x7F090020
 			public const int add = 2131296288;
 			
-			// aapt resource value: 0x7F090021
-			public const int address_name = 2131296289;
-			
 			// aapt resource value: 0x7F090022
-			public const int address_name1 = 2131296290;
+			public const int addressname = 2131296290;
+			
+			// aapt resource value: 0x7F090021
+			public const int address_name1 = 2131296289;
 			
 			// aapt resource value: 0x7F090023
 			public const int adjust_height = 2131296291;
@@ -4986,11 +4986,11 @@ namespace inaccalertvolunteers
 			// aapt resource value: 0x7F09003C
 			public const int captureimg = 2131296316;
 			
-			// aapt resource value: 0x7F09003D
-			public const int category_name = 2131296317;
-			
 			// aapt resource value: 0x7F09003E
-			public const int category_name1 = 2131296318;
+			public const int categoryname = 2131296318;
+			
+			// aapt resource value: 0x7F09003D
+			public const int category_name1 = 2131296317;
 			
 			// aapt resource value: 0x7F09003F
 			public const int center = 2131296319;
@@ -5058,11 +5058,11 @@ namespace inaccalertvolunteers
 			// aapt resource value: 0x7F090053
 			public const int default_activity_button = 2131296339;
 			
-			// aapt resource value: 0x7F090054
-			public const int description_name = 2131296340;
-			
 			// aapt resource value: 0x7F090055
-			public const int description_name1 = 2131296341;
+			public const int descriptionname = 2131296341;
+			
+			// aapt resource value: 0x7F090054
+			public const int description_name1 = 2131296340;
 			
 			// aapt resource value: 0x7F090056
 			public const int design_bottom_sheet = 2131296342;
@@ -5691,11 +5691,14 @@ namespace inaccalertvolunteers
 			// aapt resource value: 0x7F090122
 			public const int useLogo = 2131296546;
 			
+			// aapt resource value: 0x7F090124
+			public const int usericon = 2131296548;
+			
 			// aapt resource value: 0x7F090125
-			public const int usericon = 2131296549;
+			public const int userlocationtextview = 2131296549;
 			
 			// aapt resource value: 0x7F090126
-			public const int userlocationtextview = 2131296550;
+			public const int username = 2131296550;
 			
 			// aapt resource value: 0x7F090127
 			public const int usernameacc = 2131296551;
@@ -5704,10 +5707,7 @@ namespace inaccalertvolunteers
 			public const int usernametextview = 2131296552;
 			
 			// aapt resource value: 0x7F090123
-			public const int user_name = 2131296547;
-			
-			// aapt resource value: 0x7F090124
-			public const int user_name1 = 2131296548;
+			public const int user_name1 = 2131296547;
 			
 			// aapt resource value: 0x7F09012A
 			public const int viewpager = 2131296554;
@@ -5718,11 +5718,11 @@ namespace inaccalertvolunteers
 			// aapt resource value: 0x7F09012B
 			public const int visible = 2131296555;
 			
-			// aapt resource value: 0x7F09012C
-			public const int volunteer_name = 2131296556;
-			
 			// aapt resource value: 0x7F09012D
-			public const int volunteer_name1 = 2131296557;
+			public const int volunteername = 2131296557;
+			
+			// aapt resource value: 0x7F09012C
+			public const int volunteer_name1 = 2131296556;
 			
 			// aapt resource value: 0x7F09012E
 			public const int webview = 2131296558;

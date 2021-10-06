@@ -1,7 +1,9 @@
 ﻿using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using inaccalertvolunteers.DataModel;
 using System;
+using System.Collections.Generic;
 
 namespace inaccalertvolunteers.Adapter
 {
@@ -9,9 +11,9 @@ namespace inaccalertvolunteers.Adapter
     {
         public event EventHandler<HistoryRecycleAdapterClickEventArgs> ItemClick;
         public event EventHandler<HistoryRecycleAdapterClickEventArgs> ItemLongClick;
-        string[] items;
+        List<HistoryDataModel> items;
 
-        public HistoryRecycleAdapter(string[] data)
+        public HistoryRecycleAdapter(List<HistoryDataModel> data)
         {
             items = data;
         }
@@ -21,7 +23,7 @@ namespace inaccalertvolunteers.Adapter
         {
 
             //Setup your layout here
-            View itemView = null;
+            View itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.listViewDataTemplate, parent, false);
             //var id = Resource.Layout.__YOUR_ITEM_HERE;
             //itemView = LayoutInflater.From(parent.Context).
             //       Inflate(id, parent, false);
@@ -33,14 +35,18 @@ namespace inaccalertvolunteers.Adapter
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = items[position];
-
-            // Replace the contents of the view with that element
+           
             var holder = viewHolder as HistoryRecycleAdapterViewHolder;
             //holder.TextView.Text = items[position];
+            holder.UsersNametext.Text = items[position].UsersName;
+            holder.VolunteerNametext.Text = items[position].VolunteerName;
+            holder.AccidentAddresstext.Text = items[position].AccidentAddress;
+            holder.AccidentCategtext.Text = items[position].AccidentCateg;
+            holder.AccidentDescriptiontext.Text = items[position].AccidentDescription;
+            holder.dates.Text = items[position].Accidentdate;
         }
 
-        public override int ItemCount => items.Length;
+        public override int ItemCount => items.Count;
 
         void OnClick(HistoryRecycleAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(HistoryRecycleAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
@@ -50,12 +56,24 @@ namespace inaccalertvolunteers.Adapter
     public class HistoryRecycleAdapterViewHolder : RecyclerView.ViewHolder
     {
         //public TextView TextView { get; set; }
-
+        public TextView UsersNametext { get; set; }
+        public TextView VolunteerNametext { get; set; }
+        public TextView AccidentAddresstext { get; set; }
+        public TextView AccidentCategtext { get; set; }
+        public TextView AccidentDescriptiontext { get; set; }
+        public TextView dates { get; set; }
 
         public HistoryRecycleAdapterViewHolder(View itemView, Action<HistoryRecycleAdapterClickEventArgs> clickListener,
                             Action<HistoryRecycleAdapterClickEventArgs> longClickListener) : base(itemView)
         {
             //TextView = v;
+            UsersNametext = (TextView)itemView.FindViewById(Resource.Id.username);
+            VolunteerNametext = (TextView)itemView.FindViewById(Resource.Id.volunteername);
+            AccidentAddresstext = (TextView)itemView.FindViewById(Resource.Id.addressname);
+            AccidentCategtext = (TextView)itemView.FindViewById(Resource.Id.categoryname);
+            AccidentDescriptiontext = (TextView)itemView.FindViewById(Resource.Id.descriptionname);
+            dates = (TextView)itemView.FindViewById(Resource.Id.datetitle);
+
             itemView.Click += (sender, e) => clickListener(new HistoryRecycleAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new HistoryRecycleAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }

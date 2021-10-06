@@ -6,6 +6,9 @@ using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using inaccalertvolunteers.Adapter;
+using inaccalertvolunteers.DataModel;
+using inaccalertvolunteers.EventListeners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,8 @@ namespace inaccalertvolunteers.Fragments
     {
 
         RecyclerView myrecyleview;
+        ReportInfoListener reportinfo;
+        List<HistoryDataModel> datamodellist;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,8 +37,36 @@ namespace inaccalertvolunteers.Fragments
             //initialize layouts
             myrecyleview = (RecyclerView)view.FindViewById(Resource.Id.recyclerView);
 
-
+            if (reportinfo == null)
+            {
+                Toast.MakeText(Activity, "There is no Report History Notification", ToastLength.Long).Show();
+                return view;
+            }
+            else
+            {
+                RetrievedData();
+            }
             return view;
+        }
+
+        private void SetupReCylceview()
+        {
+            myrecyleview.SetLayoutManager(new Android.Support.V7.Widget.LinearLayoutManager(myrecyleview.Context));
+            HistoryRecycleAdapter adapter = new HistoryRecycleAdapter(datamodellist);
+            myrecyleview.SetAdapter(adapter);
+        }
+
+        public void RetrievedData()
+        {
+            reportinfo = new ReportInfoListener();
+            reportinfo.Create();
+            reportinfo.HistorydataRetrieve += Reportinfo_HistorydataRetrieve;
+        }
+
+        private void Reportinfo_HistorydataRetrieve(object sender, ReportInfoListener.HistoryEventArgs e)
+        {
+            datamodellist = e.data;
+            SetupReCylceview();
         }
     }
 }
