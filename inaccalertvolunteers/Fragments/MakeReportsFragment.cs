@@ -34,6 +34,7 @@ namespace inaccalertvolunteers.Fragments
         //Event Listener
         SendAccidentReportListener sendreportnow;
 
+
         public MakeReportsFragment(string nameofuser, string namevolunteer,string addressaccident)
         {
             usernamereport = nameofuser;
@@ -92,6 +93,7 @@ namespace inaccalertvolunteers.Fragments
                 Toast.MakeText(Activity, "Accident Description is Empty", ToastLength.Long).Show();
                 return;
             }
+
             Toast.MakeText(Activity, "Sending Report...", ToastLength.Short).Show();
             sendreportnow = new SendAccidentReportListener(usernamereport, nameofvolunteer,  pickcateg, accidentdescription, addressofAccident);
             sendreportnow.CreateReport();
@@ -107,5 +109,6 @@ namespace inaccalertvolunteers.Fragments
             Toast.MakeText(Activity, toast, ToastLength.Long).Show();
             pickcateg = selectedCateg.GetItemAtPosition(e.Position).ToString();
         }
+
     }
 }

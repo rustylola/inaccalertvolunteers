@@ -56,6 +56,11 @@ namespace inaccalertvolunteers.Activity
             Manifest.Permission.WriteExternalStorage,
             Manifest.Permission.Camera
         };
+
+        //Alert Dialog inialize
+        Android.Support.V7.App.AlertDialog.Builder alert;
+        Android.Support.V7.App.AlertDialog alertDialog;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -234,14 +239,34 @@ namespace inaccalertvolunteers.Activity
 
                 storageReference = FirebaseStorage.Instance.GetReference("volunteerimg/" + imgID);
                 storageReference.PutBytes(imagearray);
-                Snackbar.Make(rootView, "Registration Successfully", Snackbar.LengthShort).Show();
+                Toast.MakeText(this, "Registration Successfully", ToastLength.Short).Show();
+                showprogressDialog();
                 StartActivity(typeof(loginActivity));
+                closeprogressDialog();
             };
 
             taskCompletionListener.Failure += (s, z) =>
             {
                 Snackbar.Make(rootView, "Fail to Register", Snackbar.LengthShort).Show();
             };
+        }
+
+        void showprogressDialog()
+        {
+            alert = new Android.Support.V7.App.AlertDialog.Builder(this);
+            alert.SetView(Resource.Layout.progressdialogue);
+            alert.SetCancelable(false);
+            alertDialog = alert.Show();
+        }
+
+        void closeprogressDialog()
+        {
+            if (alert != null)
+            {
+                alertDialog.Dismiss();
+                alertDialog = null;
+                alert = null;
+            }
         }
     }
 }

@@ -20,11 +20,158 @@
                 android:id="@+id/textTitle"
                 android:textColor="@color/loginAccent"/>
     </RelativeLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/profilecontent"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="0.9" />
+        android:layout_weight="0.9"
+        android:background="@color/btnColorWhite">
+    
+        <LinearLayout
+            android:id="@+id/statuslayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/btnColorWhite">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accountstat"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/accountstathere"
+                android:gravity="right"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/loginPrimary"/>
+
+         <LinearLayout
+            android:id="@+id/picture"
+            android:orientation="vertical"
+            android:layout_height="1dp"
+            android:layout_weight="0.6"
+            android:layout_width="match_parent"
+            android:background="@drawable/background">
+            
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/infrohere"
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/btnColorWhite">
+            
+        <LinearLayout
+            android:id="@+id/namehere"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fullname"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/btnColorBlack"/>
+            <TextView
+                android:id="@+id/volunteernamehere"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/loginPrimary"/>
+
+        <LinearLayout
+            android:id="@+id/emailhere"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/inputtextuseremail"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/btnColorBlack"/>
+            <TextView
+                android:id="@+id/volunteeremailhere"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/loginPrimary"/>
+
+        <LinearLayout
+            android:id="@+id/phonehere"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phonenum"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/btnColorBlack"/>
+            <TextView
+                android:id="@+id/volunteerphonehere"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/loginPrimary"/>
+        
+        </LinearLayout>
+        <Button
+            android:id="@+id/logoutbtn"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/btnstylered"
+            android:layout_height="45dp"
+            android:text="@string/logoutbtn"
+            android:textColor="@color/loginAccent"/>
+
+
+    </LinearLayout>
 
 </LinearLayout>

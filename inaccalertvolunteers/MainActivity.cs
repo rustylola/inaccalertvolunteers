@@ -79,10 +79,10 @@ namespace inaccalertvolunteers
             base.OnCreate(savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+            profileEventListener.Create();
             connectview();
             Frontfragment();
             checkPermission();
-            profileEventListener.Create();
 
             //Do something here if user acc_status is processing
             //if processing unable the user to online
@@ -145,7 +145,6 @@ namespace inaccalertvolunteers
             NewAccidentRequestListener = null;
             availabilityListener.ReActivate();
             onlinebtn.Enabled = true; // offline button will enable again
-
         }
 
         //Call User event

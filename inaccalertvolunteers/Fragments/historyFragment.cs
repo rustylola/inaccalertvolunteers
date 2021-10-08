@@ -37,7 +37,7 @@ namespace inaccalertvolunteers.Fragments
             //initialize layouts
             myrecyleview = (RecyclerView)view.FindViewById(Resource.Id.recyclerView);
 
-            
+            //Getting all data from accident history firebase
             RetrievedData();
             
             return view;

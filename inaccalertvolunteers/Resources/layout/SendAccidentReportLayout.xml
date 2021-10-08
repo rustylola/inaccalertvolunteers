@@ -16,10 +16,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
+            android:textSize="22dp"
             android:gravity="center"
             android:text="@string/createreport"
-            android:textColor="@color/loginAccent"/>
+            android:textColor="@color/loginAccent"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -41,7 +42,8 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:hint="@string/nameofuser"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:enabled="false"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -57,7 +59,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:hint="@string/nameofvolunteer"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:enabled="false"/>
              </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -72,7 +75,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:hint="@string/addressofaccident"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:enabled="false"/>
              </android.support.design.widget.TextInputLayout>
 
             <Spinner

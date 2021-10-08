@@ -53,5 +53,11 @@ namespace inaccalertvolunteers.EventListeners
             DatabaseReference volunteerRef = database.GetReference("volunteers/" + volunteerID);
             volunteerRef.AddValueEventListener(this);
         }
+
+        public void Logout()
+        {
+            editor = preferences.Edit();
+            editor.Clear();
+        }
     }
 }
