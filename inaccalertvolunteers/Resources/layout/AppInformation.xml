@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/Layoutgetstrated"
+        android:layout_width="300dp"
+        android:layout_centerInParent="true"
+        android:layout_height="500dp"
+        android:background="@drawable/gradient">
+    
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0.3"
+            android:id="@+id/relative">
+
+           <ImageView
+                android:id="@+id/usericon"
+                android:src="@drawable/usericon"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/icon_app"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:layout_below="@+id/usericon"
+                android:text="@string/string_user"
+                android:textColor="@color/getstartedPrimary"/>
+        
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0.6"
+            android:id="@+id/relativemid">
+            <ImageView
+                android:id="@+id/infouserdesciption1"
+                android:src="@drawable/infouser"
+                android:layout_width="270dp"
+                android:layout_height="270dp"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/string_user"/>
+        </RelativeLayout>
+
+        
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0.2"
+            android:id="@+id/relative2">
+            <Button
+                android:text="@string/string_getstarted"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/getstarted"
+                android:background="@drawable/btnstyleplain"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

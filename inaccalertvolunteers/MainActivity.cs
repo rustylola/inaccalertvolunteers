@@ -86,7 +86,7 @@ namespace inaccalertvolunteers
 
             //Do something here if user acc_status is processing
             //if processing unable the user to online
-            
+            //pFragment.ShowVolunteerInformation(AppDataHelper.Getname(), AppDataHelper.Getemail(), AppDataHelper.Getphone(), AppDataHelper.Getaccstatus());
         }
 
         void Frontfragment()
@@ -412,6 +412,7 @@ namespace inaccalertvolunteers
             {
                 viewPager.SetCurrentItem(0, true);
                 toolbar.Visibility = Android.Views.ViewStates.Invisible;
+                pFragment.ShowVolunteerInformation();
             }
             else if (e.Item.ItemId == Resource.Id.mapnotification)
             {

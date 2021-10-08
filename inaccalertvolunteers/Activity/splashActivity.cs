@@ -44,7 +44,7 @@ namespace inaccalertvolunteers.Activity
         async Task SimulateStartup()
         {
             await Task.Delay(TimeSpan.FromSeconds(8));
-            StartActivity(typeof(loginActivity));
+            StartActivity(typeof(Getstarted));
             OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
         }
 

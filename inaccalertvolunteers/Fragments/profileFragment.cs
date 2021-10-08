@@ -45,6 +45,7 @@ namespace inaccalertvolunteers.Fragments
         {
             
             View view = inflater.Inflate(Resource.Layout.profile, container, false);
+
             //initialize layouts
             namevolun = (TextView)view.FindViewById(Resource.Id.volunteernamehere);
             emailvolun = (TextView)view.FindViewById(Resource.Id.volunteeremailhere);
@@ -54,7 +55,6 @@ namespace inaccalertvolunteers.Fragments
             //event
             logoutbtn.Click += Logoutbtn_Click;
             ShowVolunteerInformation();
-
             return view;
         }
 
@@ -66,8 +66,8 @@ namespace inaccalertvolunteers.Fragments
             alertDialog.SetPositiveButton("Yes", (logout, args) => {
                 showprogressDialog();
                 auth = AppDataHelper.GetfirebaseAuth();
-                auth.SignOut();
                 profile.Logout();
+                auth.SignOut();
                 Intent intent = new Intent(Activity, typeof(loginActivity));
                 StartActivity(intent);
                 closeprogressDialog();
