@@ -309,7 +309,7 @@ namespace inaccalertvolunteers
         //Accident Not Found event
         private void AccidentDetailsListener_AccidentDetailNotFound(object sender, EventArgs e)
         {
-            
+            Toast.MakeText(this, "Accident Detail Not Found", ToastLength.Short).Show();
         }
 
         //Timeout accident event

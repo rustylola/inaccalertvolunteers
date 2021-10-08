@@ -92,9 +92,10 @@ namespace inaccalertvolunteers.Fragments
                 Toast.MakeText(Activity, "Accident Description is Empty", ToastLength.Long).Show();
                 return;
             }
-
+            Toast.MakeText(Activity, "Sending Report...", ToastLength.Short).Show();
             sendreportnow = new SendAccidentReportListener(usernamereport, nameofvolunteer,  pickcateg, accidentdescription, addressofAccident);
             sendreportnow.CreateReport();
+            Toast.MakeText(Activity, "Report Successful Send.", ToastLength.Short).Show();
             //event 
             ReportSend.Invoke(this, new EventArgs());
         }

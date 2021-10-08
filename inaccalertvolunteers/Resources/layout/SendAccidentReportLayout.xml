@@ -9,7 +9,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
         android:background="@color/loginPrimary"
         android:id="@+id/layoutregistertitle"
         android:padding="20dp">
@@ -18,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30dp"
-            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/createreport"
             android:textColor="@color/loginAccent"/>

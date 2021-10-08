@@ -37,15 +37,9 @@ namespace inaccalertvolunteers.Fragments
             //initialize layouts
             myrecyleview = (RecyclerView)view.FindViewById(Resource.Id.recyclerView);
 
-            if (reportinfo == null)
-            {
-                Toast.MakeText(Activity, "There is no Report History Notification", ToastLength.Long).Show();
-                return view;
-            }
-            else
-            {
-                RetrievedData();
-            }
+            
+            RetrievedData();
+            
             return view;
         }
 
