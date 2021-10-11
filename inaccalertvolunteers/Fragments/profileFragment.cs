@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
@@ -45,7 +46,6 @@ namespace inaccalertvolunteers.Fragments
         {
             
             View view = inflater.Inflate(Resource.Layout.profile, container, false);
-
             //initialize layouts
             namevolun = (TextView)view.FindViewById(Resource.Id.volunteernamehere);
             emailvolun = (TextView)view.FindViewById(Resource.Id.volunteeremailhere);

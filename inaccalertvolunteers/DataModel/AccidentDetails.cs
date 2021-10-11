@@ -15,7 +15,7 @@ namespace inaccalertvolunteers.DataModel
     {
         public string accidentAddress { get; set; } //user address
         
-        public string userUID { get; set; } // Note: use this to create a seperate history notification for users
+        //public string userUID { get; set; } // Note: use this to create a seperate history notification for users
         public string userName { get; set; }
         public string userPhone { get; set; }
         public double accidentLat { get; set; }

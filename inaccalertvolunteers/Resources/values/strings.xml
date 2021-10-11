@@ -40,7 +40,7 @@
   <string name="online">Go Online</string>
 
   <string name="titleprofile">My Profile</string>
-  <string name="titlehistory">History Notification</string>
+  <string name="titlehistory">Report History</string>
   <string name="titlemapnotif">Map Notification</string>
 
   <string name="currentlocationstring">Current Location</string>

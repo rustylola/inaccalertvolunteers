@@ -43,6 +43,7 @@ namespace inaccalertvolunteers.Fragments
         //layout for accepting request
         LinearLayout callandarrivelayout;
         RelativeLayout callbtn;
+        RelativeLayout googledirection;
         Button arrivebtn;
         TextView usersName;
 
@@ -53,6 +54,7 @@ namespace inaccalertvolunteers.Fragments
         //events
         public event EventHandler VolunteerAccidentArrive;
         public event EventHandler CallUser;
+        public event EventHandler DirectionGoogle;
         public event EventHandler Makereport;
 
         //layout for creating report
@@ -75,11 +77,13 @@ namespace inaccalertvolunteers.Fragments
             //initialize accept layout
             callandarrivelayout = (LinearLayout)view.FindViewById(Resource.Id.callandarrivelayout);
             callbtn = (RelativeLayout)view.FindViewById(Resource.Id.calluserbtn);
+            googledirection = (RelativeLayout)view.FindViewById(Resource.Id.directiongoogle);
             arrivebtn = (Button)view.FindViewById(Resource.Id.arrivebtn);
             usersName = (TextView)view.FindViewById(Resource.Id.usernameacc);
             //event click
             arrivebtn.Click += Arrivebtn_Click;
             callbtn.Click += Callbtn_Click;
+            googledirection.Click += Googledirection_Click;
             //map configure
             SupportMapFragment mapFragment = (SupportMapFragment)ChildFragmentManager.FindFragmentById(Resource.Id.map);
             mapFragment.GetMapAsync(this);
@@ -87,6 +91,12 @@ namespace inaccalertvolunteers.Fragments
             continuelocation();
             return view;
         }
+
+        private void Googledirection_Click(object sender, EventArgs e)
+        {
+            DirectionGoogle?.Invoke(this, new EventArgs());
+        }
+
         //Call User click
         private void Callbtn_Click(object sender, EventArgs e)
         {

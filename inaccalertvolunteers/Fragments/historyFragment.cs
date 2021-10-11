@@ -1,11 +1,11 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
-using Android.Widget;
 using inaccalertvolunteers.Adapter;
 using inaccalertvolunteers.DataModel;
 using inaccalertvolunteers.EventListeners;
@@ -33,7 +33,6 @@ namespace inaccalertvolunteers.Fragments
         {
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.history, container, false);
-
             //initialize layouts
             myrecyleview = (RecyclerView)view.FindViewById(Resource.Id.recyclerView);
 

@@ -54,28 +54,45 @@
             android:background="@color/btnColorWhite">
 
             <RelativeLayout
-            android:id="@+id/calluserbtn"
-            android:clickable="true"
-            android:layout_weight="0.9"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/btnstyleplain"
-            android:layout_marginRight="5dp">
-            
-            <ImageView
-                android:contentDescription="@string/call"
+                android:id="@+id/calluserbtn"
+                android:clickable="true"
+                android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:src="@drawable/ic_call"/>
+                android:background="@drawable/btnstyleplain"
+                android:layout_marginRight="5dp">
+            
+                <ImageView
+                    android:contentDescription="@string/call"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/ic_call"/>
 
-        </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/directiongoogle"
+                android:clickable="true"
+                android:layout_weight="0.9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btnstyleplain"
+                android:layout_marginRight="5dp">
+            
+                <ImageView
+                    android:contentDescription="@string/call"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/ic_navigate"/>
+
+            </RelativeLayout>
 
         <Button
             android:id="@+id/arrivebtn"
             android:text="@string/arriveaccident"
             android:textColor="@color/btnColorWhite"
-            android:layout_weight="0.3"
+            android:layout_weight="0.5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"

@@ -3,6 +3,7 @@ using Android.App;
 using Android.Content;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
+using Android.Locations;
 using Android.Media;
 using Android.OS;
 using Android.Runtime;
@@ -11,12 +12,14 @@ using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Support.V4.View;
 using Android.Support.V7.App;
+using Android.Views;
 using Android.Widget;
 using inaccalertvolunteers.Adapter;
 using inaccalertvolunteers.DataModel;
 using inaccalertvolunteers.EventListeners;
 using inaccalertvolunteers.Fragments;
 using inaccalertvolunteers.Helper;
+using Plugin.Connectivity;
 using System;
 
 namespace inaccalertvolunteers
@@ -97,9 +100,10 @@ namespace inaccalertvolunteers
 
         void connectview()
         {
-            
             viewPager = (ViewPager)FindViewById(Resource.Id.viewpager);
             toolbar = (Android.Support.V7.Widget.Toolbar)FindViewById(Resource.Id.onlinetoolbar);
+            SetSupportActionBar(toolbar);
+            SupportActionBar.Title = "";
             //buttons and events
             onlinebtn = (Button)FindViewById(Resource.Id.onlinetbtn);
             onlinebtn.Click += Onlinebtn_Click;
@@ -117,7 +121,50 @@ namespace inaccalertvolunteers
             mFragment.VolunteerAccidentArrive += MFragment_VolunteerAccidentArrive;
             mFragment.CallUser += MFragment_CallUser;
             mFragment.Makereport += MFragment_Makereport;
+            mFragment.DirectionGoogle += MFragment_DirectionGoogle;
         }
+        //navigation with google
+        private void MFragment_DirectionGoogle(object sender, EventArgs e)
+        {
+            string uri = "";
+            if (status == "ACCEPTED")
+            {
+                uri = "google.navigation:q=" + newAccidentDetail.accidentLat.ToString() + "," + newAccidentDetail.accidentLng.ToString();
+            }
+
+            Android.Net.Uri googlemapIntentUri = Android.Net.Uri.Parse(uri);
+            Intent mapIntent = new Intent(Intent.ActionView, googlemapIntentUri);
+            mapIntent.SetPackage("com.google.android.apps.maps");
+            try
+            {
+                StartActivity(mapIntent);
+            }
+            catch
+            {
+                Toast.MakeText(this, "Google Map is not Installed.", ToastLength.Long).Show();
+            }
+        }
+
+        //toolbar menu
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.toolbar_menu, menu);
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.sidemenufirst)
+            {
+                Toast.MakeText(this, "first", ToastLength.Long).Show();
+            }
+            else if(item.ItemId == Resource.Id.sidemenusecond)
+            {
+                Toast.MakeText(this, "second", ToastLength.Long).Show();
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
         //Do or make report
         private void MFragment_Makereport(object sender, EventArgs e)
         {
@@ -369,6 +416,17 @@ namespace inaccalertvolunteers
                 return;
             }
 
+            if (!CheckInternet())
+            {
+                Toast.MakeText(this, "Please Connect to the Internet.", ToastLength.Long).Show();
+                return;
+            }
+            if (!CheckGPS())
+            {
+                Toast.MakeText(this, "Please Turn on your GPS.", ToastLength.Long).Show();
+                return;
+            }
+
             if (availabilitystatus)
             {
                 //When user wants to go offline
@@ -411,18 +469,24 @@ namespace inaccalertvolunteers
             if (e.Item.ItemId == Resource.Id.profile)
             {
                 viewPager.SetCurrentItem(0, true);
-                toolbar.Visibility = Android.Views.ViewStates.Invisible;
+                //toolbar.Visibility = Android.Views.ViewStates.Invisible;
+                toolbar.Title = "My Profile";
+                onlinebtn.Visibility = Android.Views.ViewStates.Invisible;
                 pFragment.ShowVolunteerInformation();
             }
             else if (e.Item.ItemId == Resource.Id.mapnotification)
             {
                 viewPager.SetCurrentItem(1, true);
-                toolbar.Visibility = Android.Views.ViewStates.Visible;
+                toolbar.Title = "";
+                onlinebtn.Visibility = Android.Views.ViewStates.Visible;
+                //toolbar.Visibility = Android.Views.ViewStates.Visible;
             }
             else if (e.Item.ItemId == Resource.Id.history)
             {
                 viewPager.SetCurrentItem(2, true);
-                toolbar.Visibility = Android.Views.ViewStates.Invisible;
+                toolbar.Title = "Report History";
+                onlinebtn.Visibility = Android.Views.ViewStates.Invisible;
+                //toolbar.Visibility = Android.Views.ViewStates.Invisible;
             }
         }
 
@@ -482,6 +546,27 @@ namespace inaccalertvolunteers
                 alertDialog = null;
                 alert = null;
             }
+        }
+
+        bool CheckInternet()
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                //Toast.MakeText(this, "No Internet Connection", ToastLength.Long).Show();
+                return false;
+            }
+            else
+            {
+                //Toast.MakeText(this, "Connected to the Internet", ToastLength.Long).Show();
+                return true;
+            }
+        }
+
+        bool CheckGPS()
+        {
+            LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
+            bool gpsEnable = locationManager.IsProviderEnabled(LocationManager.GpsProvider);
+            return gpsEnable;
         }
     }
 }
