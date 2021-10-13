@@ -37,12 +37,7 @@ namespace inaccalertvolunteers.EventListeners
             {
                 string accident_id = snapshot.Child("accident_id").Value.ToString();
 
-                if (accident_id != "waiting" && accident_id != "timeout" && accident_id != "cancelled")
-                {
-                    //assigned
-                    accidentAssigned?.Invoke(this, new AccidentAssignedEventargs{ accidentID = accident_id});
-                }
-                else if (accident_id == "timeout")
+                if (accident_id == "timeout")
                 {
                     //ride timeout
                     accidentTimeout?.Invoke(this, new EventArgs());
@@ -51,6 +46,11 @@ namespace inaccalertvolunteers.EventListeners
                 {
                     //ride cancelled
                     accidentCancelled?.Invoke(this, new EventArgs());
+                }
+                else if (accident_id != "waiting" && accident_id != "timeout" && accident_id != "cancelled") //(accident_id != "waiting" && accident_id != "timeout" && accident_id != "cancelled")
+                {
+                    //assigned
+                    accidentAssigned?.Invoke(this, new AccidentAssignedEventargs { accidentID = accident_id });
                 }
             }
         }

@@ -63,7 +63,7 @@ namespace inaccalertvolunteers
         bool isBackground;
         bool newAccidentAssigned;
         string status = "NORMAL"; //REQUESTFOUND , ACCEPTED , ONTRIP 
-
+        int oneRequestatatime = 0;
         //datamodel
         AccidentDetails newAccidentDetail;
 
@@ -254,6 +254,7 @@ namespace inaccalertvolunteers
         //Assign accident Event
         private void AvailabilityListener_accidentAssigned(object sender, AvailabilityListener.AccidentAssignedEventargs e)
         {
+            oneRequestatatime += 1;
             //Show Assign ID
             //Toast.MakeText(this, "New accident request assigned =" + e.accidentID, ToastLength.Short).Show();
             //Take details
@@ -267,6 +268,10 @@ namespace inaccalertvolunteers
         private void AccidentDetailsListener_AccidentDetailFound(object sender, AccidentDetailsListener.AccidentDetailsEventArgs e)
         {
             if (status != "NORMAL")
+            {
+                return;
+            }
+            if (oneRequestatatime > 1)
             {
                 return;
             }
@@ -319,7 +324,9 @@ namespace inaccalertvolunteers
                 accidentDialogueFragment = null;
             }
             //return driver online
+            oneRequestatatime = 0; // put it to zero
             availabilityListener.ReActivate();
+            
         }
 
         //accepted
@@ -341,7 +348,7 @@ namespace inaccalertvolunteers
                 accidentDialogueFragment.Dismiss();
                 accidentDialogueFragment = null;
             }
-
+            oneRequestatatime = 0;
             mFragment.accidentCreate(newAccidentDetail.userName);
             //Do someting here
             mapHelper = new MapFunctionHelper(Resources.GetString(Resource.String.mapkey),mFragment.mainMap);
@@ -350,6 +357,7 @@ namespace inaccalertvolunteers
             string directionjson = await mapHelper.GetDirectionJsonAsync(myLatlng,accidentLocation);
             closeprogressDialog();
             mapHelper.DrawAccidentOnMap(directionjson, newAccidentDetail.accidentAddress);
+            
         }
 
         //Accident Not Found event
@@ -371,6 +379,7 @@ namespace inaccalertvolunteers
             }
             //return driver online
             Toast.MakeText(this, "Accident request Timeout assigned", ToastLength.Short).Show();
+            oneRequestatatime = 0;
             availabilityListener.ReActivate();
         }
 
@@ -386,6 +395,7 @@ namespace inaccalertvolunteers
                 musicplayer = null;
             }
             //return driver online
+            oneRequestatatime = 0;
             Toast.MakeText(this, "Accident request Cancelled assigned", ToastLength.Short).Show();
             availabilityListener.ReActivate();
         }
