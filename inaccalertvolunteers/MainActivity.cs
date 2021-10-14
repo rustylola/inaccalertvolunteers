@@ -14,6 +14,7 @@ using Android.Support.V4.View;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using inaccalertvolunteers.Activity;
 using inaccalertvolunteers.Adapter;
 using inaccalertvolunteers.DataModel;
 using inaccalertvolunteers.EventListeners;
@@ -24,7 +25,7 @@ using System;
 
 namespace inaccalertvolunteers
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/logintheme", MainLauncher = false)]
+    [Activity(Label = "@string/app_name", Theme = "@style/logintheme", MainLauncher = false, NoHistory = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity : AppCompatActivity
     {
         
@@ -156,11 +157,11 @@ namespace inaccalertvolunteers
         {
             if (item.ItemId == Resource.Id.sidemenufirst)
             {
-                Toast.MakeText(this, "first", ToastLength.Long).Show();
+                StartActivity(new Intent(Application.Context, typeof(AboutAppActivity)));
             }
             else if(item.ItemId == Resource.Id.sidemenusecond)
             {
-                Toast.MakeText(this, "second", ToastLength.Long).Show();
+                StartActivity(new Intent(Application.Context, typeof(DeveloperActivity)));
             }
             return base.OnOptionsItemSelected(item);
         }
