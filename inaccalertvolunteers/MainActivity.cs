@@ -579,5 +579,19 @@ namespace inaccalertvolunteers
             bool gpsEnable = locationManager.IsProviderEnabled(LocationManager.GpsProvider);
             return gpsEnable;
         }
+
+        public override void OnBackPressed()
+        {
+            Android.Support.V7.App.AlertDialog.Builder alertDialog = new Android.Support.V7.App.AlertDialog.Builder(this);
+            alertDialog.SetTitle("Close the application");
+            alertDialog.SetMessage("This application will close.");
+            alertDialog.SetPositiveButton("Close", (close, args) =>
+            {
+                Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+            }).SetNegativeButton("Stay", (stay,args)=> {
+                return;
+            });
+            alertDialog.Show();
+        }
     }
 }
