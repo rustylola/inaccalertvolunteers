@@ -1,6 +1,7 @@
 ﻿using Android;
 using Android.App;
 using Android.Content;
+using Android.Gms.Tasks;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
@@ -23,8 +24,10 @@ using System.Text;
 namespace inaccalertvolunteers.Activity
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class RegistrationActivity : AppCompatActivity
+    public class RegistrationActivity : AppCompatActivity, IOnSuccessListener, IOnFailureListener
     {
+        //string
+        string downloadURL;
         //Task success/failure
         TaskCompletionListener taskCompletionListener = new TaskCompletionListener();
         //define layouts
@@ -138,6 +141,7 @@ namespace inaccalertvolunteers.Activity
             Bitmap bitmap = BitmapFactory.DecodeByteArray(imagearray, 0, imagearray.Length);
             imageview.SetImageBitmap(bitmap);
         }
+
         async void uploadphoto()
         {
             await CrossMedia.Current.Initialize();
@@ -235,11 +239,15 @@ namespace inaccalertvolunteers.Activity
                 map.Put("acc_status", "processing");
                 map.Put("created_time", DateTime.Now.ToString());
 
+                storageReference = FirebaseStorage.Instance.GetReference("volunteerimg/" + imgID);
+                storageReference.PutBytes(imagearray)
+                    .AddOnSuccessListener(this)
+                    .AddOnFailureListener(this);
+
+
                 newvolunteer.SetValue(map);
 
-                storageReference = FirebaseStorage.Instance.GetReference("volunteerimg/" + imgID);
-                storageReference.PutBytes(imagearray);
-                Toast.MakeText(this, "Registration Successfully", ToastLength.Short).Show();
+                Toast.MakeText(this, "Registration Successfully, Re-open the app or login now.", ToastLength.Short).Show();
                 showprogressDialog();
                 StartActivity(typeof(loginActivity));
                 closeprogressDialog();
@@ -250,6 +258,29 @@ namespace inaccalertvolunteers.Activity
                 Snackbar.Make(rootView, "Fail to Register", Snackbar.LengthShort).Show();
             };
         }
+
+        
+        public void OnSuccess(Java.Lang.Object result)
+        {
+            if (storageReference != null)
+            {
+                storageReference.GetDownloadUrl().AddOnSuccessListener(this);
+
+            }
+            if (!string.IsNullOrEmpty(result.ToString()))
+            {
+                downloadURL = result.ToString();
+                DatabaseReference newvolunteer = database.GetReference("volunteers/" + mAuth.CurrentUser.Uid);
+                newvolunteer.Child("upload_img").SetValue(downloadURL);
+                return;
+            }
+        }
+
+        public void OnFailure(Java.Lang.Exception e)
+        {
+            
+        }
+
 
         void showprogressDialog()
         {
