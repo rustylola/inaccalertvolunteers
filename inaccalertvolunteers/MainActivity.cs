@@ -293,6 +293,10 @@ namespace inaccalertvolunteers
                 {
                     notificationHelper.NotifyVersion26(this, Resources, (NotificationManager)GetSystemService(NotificationService));
                 }
+                else
+                {
+                    notificationHelper.NotifyOtherVersion(this, Resources, (NotificationManager)GetSystemService(NotificationService));
+                }
             }
 
         }
