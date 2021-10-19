@@ -66,6 +66,8 @@ namespace inaccalertvolunteers
         bool newAccidentAssigned;
         string status = "NORMAL"; //REQUESTFOUND , ACCEPTED , ONTRIP 
         int oneRequestatatime = 0;
+        int distancebetween = 0;
+
         //datamodel
         AccidentDetails newAccidentDetail;
 
@@ -269,19 +271,32 @@ namespace inaccalertvolunteers
         //Accident Found event
         private void AccidentDetailsListener_AccidentDetailFound(object sender, AccidentDetailsListener.AccidentDetailsEventArgs e)
         {
+
+
             if (status != "NORMAL")
             {
                 return;
             }
+
             if (oneRequestatatime > 1)
             {
                 return;
             }
+            
+            newAccidentDetail = e.Accidentdatail;
+
+            LatLng accidentLocationcheck = new LatLng(newAccidentDetail.accidentLat, newAccidentDetail.accidentLng);
+            distancebetween = (int)SphericalUtil.ComputeDistanceBetween(myLatlng, accidentLocationcheck);
+            if (distancebetween > 200)
+            {
+                oneRequestatatime = 0;
+                availabilityListener.ReActivate();
+                return;
+            }
+
             //Play Music Alert
             musicplayer = MediaPlayer.Create(this, Resource.Raw.AccidentAlert);
             musicplayer.Start();
-            newAccidentDetail = e.Accidentdatail;
-
             if (!isBackground)
             {
                 CreateAccidentRequestDialogue();
@@ -305,8 +320,6 @@ namespace inaccalertvolunteers
         {
             
             mapHelper = new MapFunctionHelper(Resources.GetString(Resource.String.mapkey),mFragment.mainMap);
-            LatLng accidentLocationcheck = new LatLng(newAccidentDetail.accidentLat, newAccidentDetail.accidentLng);
-            int distancebetween = (int) SphericalUtil.ComputeDistanceBetween(myLatlng, accidentLocationcheck);
 
             accidentDialogueFragment = new AccidentDialogueFragment(newAccidentDetail.userName, newAccidentDetail.accidentAddress, distancebetween.ToString());
             accidentDialogueFragment.Cancelable = false;
