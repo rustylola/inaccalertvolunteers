@@ -33,8 +33,8 @@ namespace inaccalertvolunteers.Fragments
 
         LocationCallbackHelper mylocationCallback = new LocationCallbackHelper();
 
-        static int UPDATE_INTERVAL = 3; //which means 3 sec per location update
-        static int FASTEST_INTERVAL = 3;
+        static int UPDATE_INTERVAL = 4; //which means 3 sec per location update
+        static int FASTEST_INTERVAL = 4;
         static int DISPLACEMENT = 1; // which means 1 meter per location update
 
         //layouts

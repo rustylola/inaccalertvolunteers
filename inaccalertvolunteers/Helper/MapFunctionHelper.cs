@@ -30,6 +30,9 @@ namespace inaccalertvolunteers.Helper
         public Marker currentLocMarker;
         bool isrequestingDirection;
 
+        //check
+        public string durationcheck { get; set; }
+        public string distancecheck { get; set; }
         public MapFunctionHelper(string mMapkey, GoogleMap mmap)
         {
             mapkey = mMapkey;
@@ -160,6 +163,20 @@ namespace inaccalertvolunteers.Helper
                 currentLocMarker.ShowInfoWindow();
                 isrequestingDirection = false;
             }
+        }
+        public async void CheckDistance(LatLng myLastLocation, LatLng accidentLocation)
+        {
+
+            if (!isrequestingDirection)
+            {
+                isrequestingDirection = true;
+                string json = await GetDirectionJsonAsync(myLastLocation, accidentLocation);
+                var directionData = JsonConvert.DeserializeObject<DirectionParser>(json);
+                durationcheck = directionData.routes[0].legs[0].duration.text;
+                distancecheck = directionData.routes[0].legs[0].distance.text;
+                isrequestingDirection = false;
+            }
+
         }
     }
 }

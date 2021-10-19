@@ -14,6 +14,7 @@ using Android.Support.V4.View;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Com.Google.Maps.Android;
 using inaccalertvolunteers.Activity;
 using inaccalertvolunteers.Adapter;
 using inaccalertvolunteers.DataModel;
@@ -302,7 +303,12 @@ namespace inaccalertvolunteers
         }
         void CreateAccidentRequestDialogue()
         {
-            accidentDialogueFragment = new AccidentDialogueFragment(newAccidentDetail.userName, newAccidentDetail.accidentAddress);
+            
+            mapHelper = new MapFunctionHelper(Resources.GetString(Resource.String.mapkey),mFragment.mainMap);
+            LatLng accidentLocationcheck = new LatLng(newAccidentDetail.accidentLat, newAccidentDetail.accidentLng);
+            int distancebetween = (int) SphericalUtil.ComputeDistanceBetween(myLatlng, accidentLocationcheck);
+
+            accidentDialogueFragment = new AccidentDialogueFragment(newAccidentDetail.userName, newAccidentDetail.accidentAddress, distancebetween.ToString());
             accidentDialogueFragment.Cancelable = false;
             var trans = SupportFragmentManager.BeginTransaction();
             accidentDialogueFragment.Show(trans, "Request");
@@ -356,7 +362,6 @@ namespace inaccalertvolunteers
             oneRequestatatime = 0;
             mFragment.accidentCreate(newAccidentDetail.userName);
             //Do someting here
-            mapHelper = new MapFunctionHelper(Resources.GetString(Resource.String.mapkey),mFragment.mainMap);
             LatLng accidentLocation = new LatLng(newAccidentDetail.accidentLat, newAccidentDetail.accidentLng);
             showprogressDialog();
             string directionjson = await mapHelper.GetDirectionJsonAsync(myLatlng,accidentLocation);

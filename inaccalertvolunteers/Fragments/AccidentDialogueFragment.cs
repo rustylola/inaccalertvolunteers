@@ -17,19 +17,22 @@ namespace inaccalertvolunteers.Fragments
         //define layouts
         TextView nameuser;
         TextView addressuser;
+        TextView distancing;
         Button acceptbtn;
         Button rejectbtn;
 
         string nameofuser;
         string addressofuser;
+        string totaldistance;
 
         //event
         public event EventHandler VolunteerAccepted;
         public event EventHandler VolunteerRejected;
-        public AccidentDialogueFragment(string name, string address)
+        public AccidentDialogueFragment(string name, string address, string distancetotal)
         {
             nameofuser = name;
             addressofuser = address;
+            totaldistance = distancetotal;
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -46,12 +49,14 @@ namespace inaccalertvolunteers.Fragments
             //initialize layouts
             nameuser = (TextView)view.FindViewById(Resource.Id.requestname);
             addressuser = (TextView)view.FindViewById(Resource.Id.locationaddress);
+            distancing = (TextView)view.FindViewById(Resource.Id.distance);
             rejectbtn = (Button)view.FindViewById(Resource.Id.rejecyBtn);
             acceptbtn = (Button)view.FindViewById(Resource.Id.acceptBtn);
 
             //display value
             nameuser.Text = nameofuser;
             addressuser.Text = addressofuser;
+            distancing.Text = "Distance : " + totaldistance + " meters";
 
             //button events
             rejectbtn.Click += Rejectbtn_Click;
