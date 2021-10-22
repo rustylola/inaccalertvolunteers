@@ -21,19 +21,23 @@ namespace inaccalertvolunteers.EventListeners
         string categoryofaccident;
         string accidentDescription;
         string addressofAccident;
+        double lataccident;
+        double lngaccident;
 
         FirebaseDatabase database;
         DatabaseReference AccidentReportRef;
         //ISharedPreferences preferences = Application.Context.GetSharedPreferences("volunteerHistory", FileCreationMode.Private);
         //ISharedPreferencesEditor editor;
 
-        public SendAccidentReportListener(string nameofuser, string namevolunteer, string categoryaccident, string accidentdesc, string addressaccident)
+        public SendAccidentReportListener(string nameofuser, string namevolunteer, string categoryaccident, string accidentdesc, string addressaccident,double lat,double lng)
         {
             usernamereport = nameofuser;
             nameofvolunteer = namevolunteer;
             categoryofaccident = categoryaccident;
             accidentDescription = accidentdesc;
             addressofAccident = addressaccident;
+            lataccident = lat;
+            lngaccident = lng;
         }
 
         public void OnCancelled(DatabaseError error)
@@ -67,6 +71,9 @@ namespace inaccalertvolunteers.EventListeners
             reports.Put("Accident_Description", accidentDescription);
             reports.Put("Date_Submitted", yy + "-" + mm + "-" + dd);
             reports.Put("Date_time", hh + ":" + min);
+
+            reports.Put("latitude", lataccident);
+            reports.Put("longitude", lngaccident);
 
             AccidentReportRef.SetValue(reports); // upload report in firebase
             CreateOwnCopy();

@@ -179,8 +179,10 @@ namespace inaccalertvolunteers
             string nameofuseraccident = newAccidentDetail.userName;
             string nameofvolunteer = AppDataHelper.Getname();
             string accidentaddress = newAccidentDetail.accidentAddress;
+            double lataccident = newAccidentDetail.accidentLat;
+            double lngaccident = newAccidentDetail.accidentLng;
             closeprogressDialog();
-            reportfragment = new MakeReportsFragment(nameofuseraccident,nameofvolunteer,accidentaddress);
+            reportfragment = new MakeReportsFragment(nameofuseraccident,nameofvolunteer,accidentaddress,lataccident,lngaccident);
             reportfragment.Cancelable = false;
             var trans = SupportFragmentManager.BeginTransaction();
             reportfragment.Show(trans, "Report Sending");
@@ -271,7 +273,6 @@ namespace inaccalertvolunteers
         //Accident Found event
         private void AccidentDetailsListener_AccidentDetailFound(object sender, AccidentDetailsListener.AccidentDetailsEventArgs e)
         {
-
 
             if (status != "NORMAL")
             {

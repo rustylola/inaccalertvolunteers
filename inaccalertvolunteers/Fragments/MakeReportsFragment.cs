@@ -21,6 +21,8 @@ namespace inaccalertvolunteers.Fragments
         string addressofAccident;
         string pickcateg;
         string accidentdescription;
+        double lataccident;
+        double lngaccident;
 
         //initialize layouts
         TextInputLayout usersnametext;
@@ -35,11 +37,13 @@ namespace inaccalertvolunteers.Fragments
         SendAccidentReportListener sendreportnow;
 
 
-        public MakeReportsFragment(string nameofuser, string namevolunteer,string addressaccident)
+        public MakeReportsFragment(string nameofuser, string namevolunteer,string addressaccident, double lat, double lng)
         {
             usernamereport = nameofuser;
             nameofvolunteer = namevolunteer;
             addressofAccident = addressaccident;
+            lataccident = lat;
+            lngaccident = lng;
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -95,7 +99,7 @@ namespace inaccalertvolunteers.Fragments
             }
 
             Toast.MakeText(Activity, "Sending Report...", ToastLength.Short).Show();
-            sendreportnow = new SendAccidentReportListener(usernamereport, nameofvolunteer,  pickcateg, accidentdescription, addressofAccident);
+            sendreportnow = new SendAccidentReportListener(usernamereport, nameofvolunteer,  pickcateg, accidentdescription, addressofAccident,lataccident,lngaccident);
             sendreportnow.CreateReport();
             Toast.MakeText(Activity, "Report Successful Send.", ToastLength.Short).Show();
             //event 
