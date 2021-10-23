@@ -82,8 +82,10 @@
   <string name="nameofvolunteer">Name of first-aider</string>
   <string name="addressofaccident">Accident Address</string>
   <string name="accidentdesc">Accident Description</string>
-  
+  <string name="accidentcategoryshow">Accident Category</string>
   <string name="logoutbtn">Logout</string>
   <string name="accountstat">ACCOUNT STATUS</string>
+
+  <string name="datetitle">Date</string>
   
 </resources>

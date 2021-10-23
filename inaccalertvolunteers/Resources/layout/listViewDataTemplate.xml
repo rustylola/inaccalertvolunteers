@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="20sp"
-        android:text="Date"
+        android:text="@string/datetitle"
         android:gravity="center"
         android:textColor="@color/btnColorWhite"/>
 
@@ -28,17 +28,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:text="Name of User : "
+            android:text="@string/nameofuser"
             android:textColor="@color/btnColorWhite"/>
 
-        <TextView
+    </LinearLayout>
+
+    <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
+            android:textStyle="bold"
             android:textColor="@color/btnColorWhite"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_weight="0.2"
@@ -51,17 +52,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:text="Name of Volunteer :"
+            android:text="@string/nameofvolunteer"
             android:textColor="@color/btnColorWhite"/>
 
-        <TextView
+    </LinearLayout>
+
+    <TextView
             android:id="@+id/volunteername"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
+            android:textStyle="bold"
             android:textColor="@color/btnColorWhite"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_weight="0.2"
@@ -74,17 +76,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:text="Accident Location :"
+            android:text="@string/addressofaccident"
             android:textColor="@color/btnColorWhite"/>
 
+    </LinearLayout>
+    
         <TextView
             android:id="@+id/addressname"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
+            android:textStyle="bold"
             android:textColor="@color/btnColorWhite"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_weight="0.2"
@@ -97,17 +100,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:text="Category :"
-            android:textColor="@color/btnColorWhite"/>
-
-        <TextView
-            android:id="@+id/categoryname"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
+            android:text="@string/accidentcategoryshow"
             android:textColor="@color/btnColorWhite"/>
 
     </LinearLayout>
+
+    <TextView
+            android:id="@+id/categoryname"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/btnColorWhite"/>
    
     <LinearLayout
         android:layout_weight="0.2"
@@ -120,16 +124,17 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:text="Accident Description :"
+            android:text="@string/accidentdesc"
             android:textColor="@color/btnColorWhite"/>
 
-        <TextView
+
+    </LinearLayout>
+    <TextView
             android:id="@+id/descriptionname"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
+            android:textStyle="bold"
             android:textColor="@color/btnColorWhite"/>
-
-    </LinearLayout>
 
 </LinearLayout>
