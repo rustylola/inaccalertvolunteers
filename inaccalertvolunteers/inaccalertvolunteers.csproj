@@ -79,6 +79,7 @@
     <Compile Include="DataModel\HistoryDataModel.cs" />
     <Compile Include="EventListeners\AccidentDetailsListener.cs" />
     <Compile Include="EventListeners\AvailabilityListener.cs" />
+    <Compile Include="EventListeners\CheckEmailListener.cs" />
     <Compile Include="EventListeners\NewAccidentRequestListener.cs" />
     <Compile Include="EventListeners\ProfileEventListener.cs" />
     <Compile Include="EventListeners\ReportInfoListener.cs" />

@@ -64,6 +64,8 @@ namespace inaccalertvolunteers.Activity
         Android.Support.V7.App.AlertDialog.Builder alert;
         Android.Support.V7.App.AlertDialog alertDialog;
 
+        //event listener
+        CheckEmailListener checkEmailListener;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -217,8 +219,17 @@ namespace inaccalertvolunteers.Activity
                 return;
             }
 
+            checkEmailListener = new CheckEmailListener(useremail);
+            checkEmailListener.CheckEmail();
+            checkEmailListener.Existed += CheckEmailListener_Existed;
             registeruser(fullname, useremail, userphone, userpassword, imagearray);
 
+        }
+
+        private void CheckEmailListener_Existed(object sender, EventArgs e)
+        {
+            Toast.MakeText(this, "Email already exist. Try again.", ToastLength.Short).Show();
+            StartActivity(typeof(loginActivity));
         }
 
         private void registeruser(string fullname, string useremail, string userphone, string userpassword, byte[] imagearray)
@@ -255,7 +266,7 @@ namespace inaccalertvolunteers.Activity
 
             taskCompletionListener.Failure += (s, z) =>
             {
-                Snackbar.Make(rootView, "Fail to Register", Snackbar.LengthShort).Show();
+                Snackbar.Make(rootView, "Email Already Exist.", Snackbar.LengthShort).Show();
             };
         }
 
