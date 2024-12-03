@@ -26,7 +26,7 @@ namespace inaccalertvolunteers.Helper
                 var option = new FirebaseOptions.Builder()
                     .SetProjectId("inaccalert-database")
                     .SetApplicationId("inaccalert-database")
-                    .SetApiKey("AIzaSyCDcTY55MlwDzx2r_zAij1uGu0QOMzdzVQ")
+                    .SetApiKey("-------- get api key ---------")
                     .SetDatabaseUrl("https://inaccalert-database-default-rtdb.firebaseio.com")
                     .SetStorageBucket("inaccalert-database.appspot.com")
                     .Build();
@@ -51,7 +51,7 @@ namespace inaccalertvolunteers.Helper
                 var option = new FirebaseOptions.Builder()
                     .SetProjectId("inaccalert-database")
                     .SetApplicationId("inaccalert-database")
-                    .SetApiKey("AIzaSyCDcTY55MlwDzx2r_zAij1uGu0QOMzdzVQ")
+                    .SetApiKey("-------- get api key ---------")
                     .SetDatabaseUrl("https://inaccalert-database-default-rtdb.firebaseio.com")
                     .SetStorageBucket("inaccalert-database.appspot.com")
                     .Build();
@@ -76,7 +76,7 @@ namespace inaccalertvolunteers.Helper
                 var option = new FirebaseOptions.Builder()
                     .SetProjectId("inaccalert-database")
                     .SetApplicationId("inaccalert-database")
-                    .SetApiKey("AIzaSyCDcTY55MlwDzx2r_zAij1uGu0QOMzdzVQ")
+                    .SetApiKey("-------- get api key ---------")
                     .SetDatabaseUrl("https://inaccalert-database-default-rtdb.firebaseio.com")
                     .SetStorageBucket("inaccalert-database.appspot.com")
                     .Build();
